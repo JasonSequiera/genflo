@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cycle Tracking — GenFlo</title>
+  <meta name="description" content="Track your menstrual cycle with GenFlo's visual timeline, predictive forecasting and PCOS/PMDD management tools." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <script src="js/api.js"></script>
+  <script src="js/navbar.js"></script>
+  <style>
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+    .cal-header { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); text-align: center; padding: 8px 0; }
+    .cal-day {
+      aspect-ratio: 1; border-radius: var(--radius-sm); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; font-size: 0.82rem; cursor: pointer;
+      border: 1px solid transparent; transition: var(--transition); position: relative;
+    }
+    .cal-day:hover { border-color: var(--sage); }
+    .cal-day.menstrual { background: rgba(201,124,93,0.15); color: var(--terracotta); }
+    .cal-day.follicular { background: rgba(181,201,179,0.2); color: var(--muted-green); }
+    .cal-day.ovulatory { background: rgba(94,122,92,0.2); color: var(--sage-dark); font-weight: 600; }
+    .cal-day.luteal { background: rgba(212,184,150,0.2); color: #8a6a40; }
+    .cal-day.today { outline: 2px solid var(--charcoal); outline-offset: 2px; }
+    .cal-day.pms-warn::after { content: '⚠'; position: absolute; top: 2px; right: 2px; font-size: 0.6rem; }
+    .phase-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-muted); }
+    .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .condition-module {
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg); padding: 24px;
+      background: var(--card-bg); backdrop-filter: blur(8px);
+    }
+    .condition-module h4 { margin-bottom: 12px; font-size: 1rem; }
+    .phase-toggle { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .phase-toggle-btn {
+      padding: 8px 18px; border-radius: 100px;
+      border: 1.5px solid var(--card-border);
+      background: var(--white); font-size: 0.82rem;
+      cursor: pointer; transition: var(--transition);
+      font-family: var(--font-body); color: var(--charcoal);
+    }
+    .phase-toggle-btn.active, .phase-toggle-btn:hover {
+      background: var(--sage-dark); color: white; border-color: var(--sage-dark);
+    }
+  </style>
+</head>
+<body>
+
+    <nav id="main-nav" class="gf-navbar">
+    <div class="gf-navbar-inner">
+      <a href="dashboard.html" class="gf-navbar-logo">
+        <span class="gf-logo-mark">⬡</span>GenFlo
+      </a>
+      <ul class="gf-nav-links">
+        <li><a href="dashboard.html" class="gf-nav-link" id="nav-home"><span class="gf-nav-icon">🏠</span>Home</a></li>
+        <li><a href="cycle.html" class="gf-nav-link" id="nav-cycle" class="gf-nav-link active"><span class="gf-nav-icon">🌙</span>Cycle</a></li>
+        <li><a href="skin.html" class="gf-nav-link" id="nav-skin"><span class="gf-nav-icon">✨</span>Skin</a></li>
+        <li><a href="wellness.html" class="gf-nav-link" id="nav-wellness"><span class="gf-nav-icon">🥗</span>Wellness</a></li>
+        <li><a href="partner.html" class="gf-nav-link" id="nav-partner"><span class="gf-nav-icon">💑</span>Partner</a></li>
+        <li><a href="aria.html" class="gf-nav-link" id="nav-aria"><span class="gf-nav-icon">🤖</span>Aria</a></li>
+      </ul>
+      <div class="gf-nav-right">
+        <div class="gf-profile-menu" id="gf-profile-menu">
+          <button class="gf-profile-trigger" id="gf-profile-trigger" aria-label="Profile menu">
+            <div class="gf-avatar" id="nav-avatar-sm">U</div>
+            <span class="gf-profile-name" id="nav-user-name">User</span>
+            <svg class="gf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="gf-profile-dropdown" id="gf-profile-dropdown">
+            <div class="gf-dropdown-header">
+              <div class="gf-avatar gf-avatar-lg" id="nav-avatar-lg">U</div>
+              <div>
+                <div class="gf-dropdown-name" id="nav-user-name-dropdown">User</div>
+                <div class="gf-dropdown-role">GenFlo Member</div>
+              </div>
+            </div>
+            <div class="gf-dropdown-divider"></div>
+            <a href="dashboard.html" class="gf-dropdown-item"><span>🏠</span> Dashboard</a>
+            <a href="onboarding.html" class="gf-dropdown-item"><span>⚙️</span> Settings</a>
+            <div class="gf-dropdown-divider"></div>
+            <button class="gf-dropdown-item gf-signout-btn" id="gf-signout-btn"><span>🚪</span> Sign Out</button>
+          </div>
+        </div>
+      </div>
+      <button class="gf-burger" id="gf-burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="gf-mobile-menu" id="gf-mobile-menu">
+      <a href="dashboard.html" class="gf-mobile-link" id="mob-home"><span class="gf-nav-icon">🏠</span>Home</a>
+      <a href="cycle.html" class="gf-mobile-link" id="mob-cycle"><span class="gf-nav-icon">🌙</span>Cycle</a>
+      <a href="skin.html" class="gf-mobile-link" id="mob-skin"><span class="gf-nav-icon">✨</span>Skin</a>
+      <a href="wellness.html" class="gf-mobile-link" id="mob-wellness"><span class="gf-nav-icon">🥗</span>Wellness</a>
+      <a href="partner.html" class="gf-mobile-link" id="mob-partner"><span class="gf-nav-icon">💑</span>Partner</a>
+      <a href="aria.html" class="gf-mobile-link" id="mob-aria"><span class="gf-nav-icon">🤖</span>Aria</a>
+      <div class="gf-mobile-divider"></div>
+      <button class="gf-mobile-signout" id="gf-mobile-signout">🚪 Sign Out</button>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="section-badge">🌙 Cycle Tracking</div>
+      <h1>Your Cycle, Visualized</h1>
+      <p>A complete view of your 28-day cycle with predictive forecasting and condition-specific tools.</p>
+    </div>
+  </section>
+
+  <div class="page-content">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:28px;">
+
+        <div style="display:flex;flex-direction:column;gap:20px;">
+
+          <!-- Timeline Bar -->
+          <div class="dashboard-card">
+            <h3>28-Day Cycle Timeline</h3>
+            <div style="display:flex;height:44px;border-radius:var(--radius-sm);overflow:hidden;margin-bottom:20px;gap:3px;">
+              <div style="width:18%;background:#c97c5d;display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:white;border-radius:4px 0 0 4px;">Menstrual<br/><small style="font-size:0.6rem;">D1–5</small></div>
+              <div style="width:29%;background:#b5c9b3;display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--charcoal);">Follicular<br/><small style="font-size:0.6rem;">D6–13</small></div>
+              <div style="width:11%;background:#5e7a5c;display:flex;align-items:center;justify-content:center;font-size:0.72rem;color:white;outline:3px solid #222;outline-offset:-2px;border-radius:2px;">Ovul.<br/><small style="font-size:0.58rem;">D14</small></div>
+              <div style="width:42%;background:#d4b896;display:flex;align-items:center;justify-content:center;font-size:0.75rem;color:var(--charcoal);border-radius:0 4px 4px 0;">Luteal<br/><small style="font-size:0.6rem;">D17–28</small></div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;font-size:0.78rem;color:var(--text-muted);margin-bottom:24px;">
+              <span>Day 1</span>
+              <div style="background:var(--charcoal);color:white;padding:4px 14px;border-radius:100px;font-size:0.75rem;">📍 You are here — Day 14</div>
+              <span>Day 28</span>
+            </div>
+
+            <!-- Forecast -->
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+              <div style="background:rgba(201,124,93,0.08);border:1px solid rgba(201,124,93,0.2);border-radius:var(--radius-md);padding:16px;text-align:center;">
+                <div style="font-size:1.5rem;margin-bottom:6px;">🩸</div>
+                <div style="font-weight:500;color:var(--charcoal);font-size:0.88rem;">Next Period</div>
+                <div style="font-size:1.2rem;font-family:var(--font-display);color:var(--terracotta);">14 days</div>
+              </div>
+              <div style="background:rgba(255,200,50,0.08);border:1px solid rgba(255,200,50,0.2);border-radius:var(--radius-md);padding:16px;text-align:center;">
+                <div style="font-size:1.5rem;margin-bottom:6px;">⚠️</div>
+                <div style="font-weight:500;color:var(--charcoal);font-size:0.88rem;">PMS Window</div>
+                <div style="font-size:1.2rem;font-family:var(--font-display);color:#a08000;">9 days</div>
+              </div>
+              <div style="background:rgba(94,122,92,0.08);border:1px solid rgba(94,122,92,0.2);border-radius:var(--radius-md);padding:16px;text-align:center;">
+                <div style="font-size:1.5rem;margin-bottom:6px;">🌕</div>
+                <div style="font-weight:500;color:var(--charcoal);font-size:0.88rem;">Next Phase</div>
+                <div style="font-size:1.2rem;font-family:var(--font-display);color:var(--sage-dark);">Luteal in 3d</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calendar -->
+          <div class="dashboard-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+              <h3 style="margin-bottom:0;">June 2026</h3>
+              <div style="display:flex;gap:8px;">
+                <button class="btn-ghost" style="padding:6px 14px;font-size:0.8rem;">← May</button>
+                <button class="btn-ghost" style="padding:6px 14px;font-size:0.8rem;">Jul →</button>
+              </div>
+            </div>
+            <div class="phase-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:#c97c5d;"></div>Menstrual</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#b5c9b3;"></div>Follicular</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#5e7a5c;"></div>Ovulatory</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#d4b896;"></div>Luteal</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#ffcc00;"></div>PMS Window</div>
+            </div>
+            <div class="calendar-grid">
+              <div class="cal-header">Sun</div><div class="cal-header">Mon</div><div class="cal-header">Tue</div>
+              <div class="cal-header">Wed</div><div class="cal-header">Thu</div><div class="cal-header">Fri</div><div class="cal-header">Sat</div>
+              <!-- Row 1 -->
+              <div class="cal-day"></div><div class="cal-day menstrual">1</div><div class="cal-day menstrual">2</div>
+              <div class="cal-day menstrual">3</div><div class="cal-day menstrual">4</div><div class="cal-day menstrual">5</div><div class="cal-day follicular">6</div>
+              <!-- Row 2 -->
+              <div class="cal-day follicular">7</div><div class="cal-day follicular">8</div><div class="cal-day follicular">9</div>
+              <div class="cal-day follicular">10</div><div class="cal-day follicular">11</div><div class="cal-day follicular">12</div><div class="cal-day follicular">13</div>
+              <!-- Row 3 -->
+              <div class="cal-day ovulatory">14</div><div class="cal-day ovulatory today">15</div><div class="cal-day ovulatory">16</div>
+              <div class="cal-day luteal">17</div><div class="cal-day luteal">18</div><div class="cal-day luteal">19</div><div class="cal-day luteal">20</div>
+              <!-- Row 4 -->
+              <div class="cal-day luteal">21</div><div class="cal-day luteal">22</div><div class="cal-day luteal pms-warn">23</div>
+              <div class="cal-day luteal pms-warn">24</div><div class="cal-day luteal pms-warn">25</div><div class="cal-day luteal pms-warn">26</div><div class="cal-day luteal pms-warn">27</div>
+              <!-- Row 5 -->
+              <div class="cal-day luteal pms-warn">28</div><div class="cal-day"></div><div class="cal-day"></div>
+              <div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div>
+            </div>
+          </div>
+
+          <!-- Condition Modules -->
+          <div class="dashboard-card">
+            <h3>Condition-Specific Modules</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+              <div class="condition-module">
+                <h4>🔵 PCOS / PCOD</h4>
+                <p style="font-size:0.85rem;line-height:1.6;margin-bottom:16px;">Track irregular cycles, elevated androgen symptoms, and get tailored advice for insulin sensitivity and hormonal balance.</p>
+                <a href="aria.html" class="btn-outline" style="font-size:0.8rem;padding:8px 16px;">Talk to Aria →</a>
+              </div>
+              <div class="condition-module">
+                <h4>🟣 PMDD / PMS</h4>
+                <p style="font-size:0.85rem;line-height:1.6;margin-bottom:16px;">Monitor your PMS window (Days 23–28), track mood dips, and get Aria's emotional support and supplement guidance.</p>
+                <a href="aria.html" class="btn-outline" style="font-size:0.8rem;padding:8px 16px;">Talk to Aria →</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Sidebar -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="sidebar-card">
+            <h4>Phase Details</h4>
+            <div style="text-align:center;padding:16px 0;">
+              <div style="font-size:2.5rem;margin-bottom:8px;">🌕</div>
+              <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--sage-dark);margin-bottom:4px;">Ovulatory</div>
+              <div style="font-size:0.78rem;color:var(--text-muted);">Day 14 of 28</div>
+            </div>
+            <div style="font-size:0.82rem;color:var(--charcoal);line-height:1.7;background:rgba(143,172,141,0.08);border-radius:var(--radius-sm);padding:14px;">
+              Peak estrogen and testosterone. You're at your most magnetic, energetic and outgoing. Skin is luminous, pain tolerance is high.
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h4>Hormones Today</h4>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:6px;"><span>Estrogen</span><span style="color:var(--sage-dark);font-weight:500;">Peak ↑</span></div>
+                <div style="height:6px;background:var(--card-border);border-radius:100px;"><div style="width:95%;height:100%;background:linear-gradient(90deg,var(--sage),var(--sage-dark));border-radius:100px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:6px;"><span>Progesterone</span><span style="color:var(--text-muted);font-weight:500;">Low</span></div>
+                <div style="height:6px;background:var(--card-border);border-radius:100px;"><div style="width:15%;height:100%;background:linear-gradient(90deg,#d4b896,#a08050);border-radius:100px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:6px;"><span>Testosterone</span><span style="color:var(--terracotta);font-weight:500;">High ↑</span></div>
+                <div style="height:6px;background:var(--card-border);border-radius:100px;"><div style="width:75%;height:100%;background:linear-gradient(90deg,var(--terracotta-light),var(--terracotta));border-radius:100px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:6px;"><span>FSH / LH</span><span style="color:var(--sage-dark);font-weight:500;">Surging ↑</span></div>
+                <div style="height:6px;background:var(--card-border);border-radius:100px;"><div style="width:85%;height:100%;background:linear-gradient(90deg,var(--sage-light),var(--sage-dark));border-radius:100px;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h4>Quick Log</h4>
+            <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:16px;">How are you feeling today?</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+              <button class="condition-btn" style="font-size:0.78rem;" onclick="this.classList.toggle('selected')">😊 Great</button>
+              <button class="condition-btn" style="font-size:0.78rem;" onclick="this.classList.toggle('selected')">😌 Calm</button>
+              <button class="condition-btn" style="font-size:0.78rem;" onclick="this.classList.toggle('selected')">⚡ Energized</button>
+              <button class="condition-btn" style="font-size:0.78rem;" onclick="this.classList.toggle('selected')">😔 Low</button>
+              <button class="condition-btn" style="font-size:0.78rem;" onclick="this.classList.toggle('selected')">😤 Stressed</button>
+            </div>
+            <button class="btn-primary" style="width:100%;justify-content:center;" onclick="alert('Logged! ✓')">Save Log</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

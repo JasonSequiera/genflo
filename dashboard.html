@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — GenFlo</title>
+  <meta name="description" content="Your personalized GenFlo daily dashboard — cycle phase, Aria insights, skin and wellness at a glance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <script src="js/api.js"></script>
+  <script src="js/navbar.js"></script>
+</head>
+<body>
+
+    <nav id="main-nav" class="gf-navbar">
+    <div class="gf-navbar-inner">
+      <a href="dashboard.html" class="gf-navbar-logo">
+        <span class="gf-logo-mark">⬡</span>GenFlo
+      </a>
+      <ul class="gf-nav-links">
+        <li><a href="dashboard.html" class="gf-nav-link" id="nav-home" class="gf-nav-link active"><span class="gf-nav-icon">🏠</span>Home</a></li>
+        <li><a href="cycle.html" class="gf-nav-link" id="nav-cycle"><span class="gf-nav-icon">🌙</span>Cycle</a></li>
+        <li><a href="skin.html" class="gf-nav-link" id="nav-skin"><span class="gf-nav-icon">✨</span>Skin</a></li>
+        <li><a href="wellness.html" class="gf-nav-link" id="nav-wellness"><span class="gf-nav-icon">🥗</span>Wellness</a></li>
+        <li><a href="partner.html" class="gf-nav-link" id="nav-partner"><span class="gf-nav-icon">💑</span>Partner</a></li>
+        <li><a href="aria.html" class="gf-nav-link" id="nav-aria"><span class="gf-nav-icon">🤖</span>Aria</a></li>
+      </ul>
+      <div class="gf-nav-right">
+        <div class="gf-profile-menu" id="gf-profile-menu">
+          <button class="gf-profile-trigger" id="gf-profile-trigger" aria-label="Profile menu">
+            <div class="gf-avatar" id="nav-avatar-sm">U</div>
+            <span class="gf-profile-name" id="nav-user-name">User</span>
+            <svg class="gf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="gf-profile-dropdown" id="gf-profile-dropdown">
+            <div class="gf-dropdown-header">
+              <div class="gf-avatar gf-avatar-lg" id="nav-avatar-lg">U</div>
+              <div>
+                <div class="gf-dropdown-name" id="nav-user-name-dropdown">User</div>
+                <div class="gf-dropdown-role">GenFlo Member</div>
+              </div>
+            </div>
+            <div class="gf-dropdown-divider"></div>
+            <a href="dashboard.html" class="gf-dropdown-item"><span>🏠</span> Dashboard</a>
+            <a href="onboarding.html" class="gf-dropdown-item"><span>⚙️</span> Settings</a>
+            <div class="gf-dropdown-divider"></div>
+            <button class="gf-dropdown-item gf-signout-btn" id="gf-signout-btn"><span>🚪</span> Sign Out</button>
+          </div>
+        </div>
+      </div>
+      <button class="gf-burger" id="gf-burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="gf-mobile-menu" id="gf-mobile-menu">
+      <a href="dashboard.html" class="gf-mobile-link" id="mob-home"><span class="gf-nav-icon">🏠</span>Home</a>
+      <a href="cycle.html" class="gf-mobile-link" id="mob-cycle"><span class="gf-nav-icon">🌙</span>Cycle</a>
+      <a href="skin.html" class="gf-mobile-link" id="mob-skin"><span class="gf-nav-icon">✨</span>Skin</a>
+      <a href="wellness.html" class="gf-mobile-link" id="mob-wellness"><span class="gf-nav-icon">🥗</span>Wellness</a>
+      <a href="partner.html" class="gf-mobile-link" id="mob-partner"><span class="gf-nav-icon">💑</span>Partner</a>
+      <a href="aria.html" class="gf-mobile-link" id="mob-aria"><span class="gf-nav-icon">🤖</span>Aria</a>
+      <div class="gf-mobile-divider"></div>
+      <button class="gf-mobile-signout" id="gf-mobile-signout">🚪 Sign Out</button>
+    </div>
+  </nav>
+
+  <!-- 3-Column Layout -->
+  <div class="dashboard-layout">
+
+    <!-- Left Sidebar -->
+    <aside class="sidebar" id="left-sidebar">
+      <!-- Quick Glance -->
+      <div class="sidebar-card">
+        <h4>Quick Glance</h4>
+        <div id="quick-glance-content">
+          <div class="side-metric"><span class="side-metric-label">⚡ Energy</span><span class="side-metric-value" id="glance-energy">—</span></div>
+          <div class="side-metric"><span class="side-metric-label">😊 Mood</span><span class="side-metric-value" id="glance-mood">—</span></div>
+          <div class="side-metric"><span class="side-metric-label">🌕 Next Phase</span><span class="side-metric-value" id="glance-next-phase">—</span></div>
+          <div class="side-metric"><span class="side-metric-label">🩸 Next Period</span><span class="side-metric-value" id="glance-next-period">—</span></div>
+        </div>
+        <div id="quick-glance-empty" style="display:none;font-size:0.8rem;color:var(--text-muted);text-align:center;padding:12px 0;">
+          <a href="onboarding.html" style="color:var(--sage-dark);">Set up your cycle →</a>
+        </div>
+      </div>
+
+      <!-- Partner Schedule -->
+      <div class="sidebar-card" id="partner-schedule-card">
+        <h4 id="partner-schedule-title">Partner's Week</h4>
+        <div id="partner-schedule-content" style="display:flex;flex-direction:column;gap:8px;">
+          <div style="font-size:0.8rem;color:var(--text-muted);text-align:center;padding:12px 0;">
+            No partner connected.<br>
+            <a href="partner.html" style="color:var(--sage-dark);">Connect a partner →</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Greeting -->
+      <div class="greeting-section dashboard-card" style="padding:0;overflow:hidden;border:none;">
+        <div style="background:linear-gradient(135deg,var(--sage-bg),var(--cream));border:1px solid var(--card-border);border-radius:var(--radius-lg);padding:32px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden;">
+          <div style="position:absolute;right:-20px;top:-20px;font-size:8rem;opacity:0.07;">🌿</div>
+          <div>
+            <p id="greeting-date" style="font-size:0.85rem;color:var(--sage-dark);font-weight:500;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;">—</p>
+            <h2 id="greeting-text" style="font-family:var(--font-display);font-size:2rem;color:var(--charcoal);margin-bottom:8px;">Welcome back 🌿</h2>
+            <p id="greeting-subtitle" style="font-size:0.9rem;color:var(--text-muted);">Loading your cycle data...</p>
+          </div>
+          <div id="phase-badge" style="display:none;background:var(--white);border:1px solid var(--card-border);border-radius:var(--radius-md);padding:20px 28px;text-align:center;min-width:160px;flex-shrink:0;">
+            <span id="phase-badge-name" style="font-family:var(--font-display);font-size:1.6rem;color:var(--sage-dark);display:block;margin-bottom:4px;"></span>
+            <span id="phase-badge-day" style="font-size:0.78rem;color:var(--text-muted);"></span>
+          </div>
+          <div id="no-cycle-cta" style="display:none;background:var(--white);border:1px solid var(--card-border);border-radius:var(--radius-md);padding:20px 24px;text-align:center;min-width:160px;flex-shrink:0;">
+            <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:10px;">No cycle data yet</div>
+            <a href="onboarding.html" class="btn-primary" style="font-size:0.8rem;padding:8px 16px;">Set up →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cycle Progress -->
+      <div class="dashboard-card" id="cycle-card">
+        <h3>Cycle Timeline</h3>
+        <div id="cycle-timeline-content">
+          <div style="font-size:0.85rem;color:var(--text-muted);text-align:center;padding:24px 0;">
+            No cycle data. <a href="onboarding.html" style="color:var(--sage-dark);">Set up your cycle →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aria Daily Insight -->
+      <div class="dashboard-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:44px;height:44px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;">🤖</div>
+            <div>
+              <div style="font-weight:600;color:var(--charcoal);font-size:0.95rem;">Aria</div>
+              <div style="font-size:0.75rem;color:var(--sage-dark);">● AI Health Companion</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <a href="aria.html" class="btn-primary" style="padding:10px 20px;font-size:0.85rem;">Chat →</a>
+          </div>
+        </div>
+        <div style="background:rgba(143,172,141,0.08);border:1px solid var(--card-border);border-radius:var(--radius-md);padding:16px;">
+          <div style="font-size:0.75rem;color:var(--sage-dark);font-weight:500;margin-bottom:8px;">ARIA'S DAILY INSIGHT</div>
+          <p id="aria-insight" style="font-size:0.9rem;color:var(--charcoal);line-height:1.7;">Loading your personalized insight...</p>
+        </div>
+      </div>
+
+      <!-- Today's Metrics -->
+      <div class="dashboard-card">
+        <h3>Today's Log</h3>
+        <div id="todays-log-content">
+          <div class="quick-stats">
+            <div class="qs-card"><div class="qs-icon">⚡</div><div class="qs-value" id="log-energy">—</div><div class="qs-label">Energy</div></div>
+            <div class="qs-card"><div class="qs-icon">😊</div><div class="qs-value" id="log-mood">—</div><div class="qs-label">Mood</div></div>
+            <div class="qs-card"><div class="qs-icon">✨</div><div class="qs-value" id="log-skin">—</div><div class="qs-label">Skin</div></div>
+          </div>
+          <div style="text-align:center;margin-top:16px;">
+            <a href="aria.html" class="btn-outline" style="font-size:0.85rem;">📝 Log today with Aria →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Partner Nudges -->
+      <div class="dashboard-card" id="nudge-card" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+          <h3 style="margin-bottom:0;">Partner Alerts</h3>
+          <span id="nudge-badge" style="font-size:0.75rem;background:var(--terracotta);color:white;padding:2px 8px;border-radius:100px;font-weight:600;display:none;"></span>
+        </div>
+        <div id="nudge-content">
+          <div style="font-size:0.85rem;color:var(--text-muted);text-align:center;padding:16px 0;">No new nudges.</div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="sidebar" id="right-sidebar">
+
+      <!-- Nudge History -->
+      <div class="sidebar-card">
+        <h4>Nudge History</h4>
+        <div id="nudge-history-content">
+          <div style="font-size:0.8rem;color:var(--text-muted);text-align:center;padding:12px 0;">
+            No nudges yet.<br>
+            <a href="partner.html" style="color:var(--sage-dark);">Connect a partner →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Today's Reminders -->
+      <div class="sidebar-card">
+        <h4>Today's Reminders</h4>
+        <div id="reminders-content">
+          <div style="font-size:0.8rem;color:var(--text-muted);text-align:center;padding:12px 0;">
+            No supplements logged.<br>
+            <a href="wellness.html" style="color:var(--sage-dark);">Set up reminders →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Best Date Window -->
+      <div class="sidebar-card" id="date-window-card" style="display:none;">
+        <h4>Best Date Window</h4>
+        <div id="date-window-content"></div>
+        <a href="partner.html" class="btn-outline" style="width:100%;justify-content:center;text-align:center;display:flex;margin-top:12px;">Plan Date with Aria →</a>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // ── Auth Guard ───────────────────────────────────
+    if (!GenFloAPI.isLoggedIn()) window.location.href = 'login.html';
+
+    // ── Helpers ──────────────────────────────────────
+    function getGreetingTime() {
+      const h = new Date().getHours();
+      if (h < 12) return 'Good morning';
+      if (h < 17) return 'Good afternoon';
+      return 'Good evening';
+    }
+
+    function formatDate(d) {
+      return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    }
+
+    function energyLabel(val) {
+      if (!val) return '—';
+      if (val >= 8) return 'High';
+      if (val >= 5) return 'Medium';
+      return 'Low';
+    }
+
+    function timeAgo(dateStr) {
+      const diff = Math.floor((Date.now() - new Date(dateStr)) / 60000);
+      if (diff < 60) return `${diff}m ago`;
+      if (diff < 1440) return `${Math.floor(diff/60)}h ago`;
+      return `${Math.floor(diff/1440)}d ago`;
+    }
+
+    // ── Load user info ───────────────────────────────
+    const user = GenFloAPI.getUser();
+    const firstName = user?.name?.split(' ')[0] || 'there';
+    document.getElementById('greeting-text').textContent = `${getGreetingTime()}, ${firstName} 🌿`;
+    document.getElementById('greeting-date').textContent = formatDate(new Date());
+
+    // ── Sign Out ─────────────────────────────────────
+    function handleSignOut() {
+      GenFloAPI.clearSession();
+    }
+
+    // ── Load Cycle Data ──────────────────────────────
+    async function loadCycle() {
+      const cycle = await GenFloAPI.getCycle();
+      if (!cycle || cycle.error || !cycle.phase) {
+        document.getElementById('greeting-subtitle').textContent = 'Set up your cycle to see personalized insights.';
+        document.getElementById('no-cycle-cta').style.display = 'block';
+        document.getElementById('cycle-timeline-content').innerHTML = `
+          <div style="font-size:0.85rem;color:var(--text-muted);text-align:center;padding:24px 0;">
+            No cycle data yet. <a href="onboarding.html" style="color:var(--sage-dark);">Set up your cycle →</a>
+          </div>`;
+        document.getElementById('glance-next-phase').textContent = '—';
+        document.getElementById('glance-next-period').textContent = '—';
+        return;
+      }
+
+      // Greeting subtitle
+      document.getElementById('greeting-subtitle').textContent =
+        `You're in your ${cycle.phase} phase — ${cycle.phase === 'Menstrual' ? 'rest and restore today.' : cycle.phase === 'Follicular' ? 'energy building, great time to start new things.' : cycle.phase === 'Ovulatory' ? 'peak energy and confidence today!' : 'wind down and reflect.'}`;
+
+      // Phase badge
+      document.getElementById('phase-badge').style.display = 'block';
+      document.getElementById('phase-badge-name').textContent = cycle.phase;
+      document.getElementById('phase-badge-day').textContent = `Day ${cycle.dayInCycle} of ${cycle.cycleLength || 28}`;
+
+      // Quick glance
+      document.getElementById('glance-next-phase').textContent = cycle.nextPhase ? `${cycle.nextPhase} in ${cycle.daysUntilNextPhase}d` : '—';
+      document.getElementById('glance-next-period').textContent = cycle.daysUntilNextPeriod != null ? `in ${cycle.daysUntilNextPeriod} days` : '—';
+
+      // Cycle timeline
+      const cl = cycle.cycleLength || 28;
+      const pl = cycle.periodLength || 5;
+      const day = cycle.dayInCycle;
+      const menstrualPct = Math.round((pl / cl) * 100);
+      const follicularPct = Math.round(((14 - pl) / cl) * 100);
+      const ovulatoryPct = Math.round((3 / cl) * 100);
+      const lutealPct = 100 - menstrualPct - follicularPct - ovulatoryPct;
+      const dayPct = Math.round((day / cl) * 100);
+
+      document.getElementById('cycle-timeline-content').innerHTML = `
+        <div style="display:flex;height:36px;border-radius:var(--radius-sm);overflow:hidden;margin-bottom:16px;gap:2px;">
+          <div style="width:${menstrualPct}%;background:#c97c5d;display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:white;">Menstrual</div>
+          <div style="width:${follicularPct}%;background:#b5c9b3;display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:var(--charcoal);">Follicular</div>
+          <div style="width:${ovulatoryPct}%;background:#5e7a5c;display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:white;">Ovul.</div>
+          <div style="width:${lutealPct}%;background:#d4b896;display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:var(--charcoal);">Luteal</div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:0.8rem;color:var(--text-muted);margin-bottom:20px;">
+          <span>Day 1</span>
+          <div style="display:flex;align-items:center;gap:6px;background:var(--charcoal);color:white;padding:4px 12px;border-radius:100px;font-size:0.75rem;">📍 Day ${day}</div>
+          <span>Day ${cl}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+          <div style="background:rgba(201,124,93,0.08);border:1px solid rgba(201,124,93,0.2);border-radius:var(--radius-sm);padding:14px;text-align:center;">
+            <div style="font-size:1.3rem;margin-bottom:4px;">🩸</div>
+            <div style="font-size:0.82rem;font-weight:500;color:var(--charcoal);">Next Period</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);">${cycle.daysUntilNextPeriod != null ? `in ${cycle.daysUntilNextPeriod} days` : '—'}</div>
+          </div>
+          <div style="background:rgba(255,200,50,0.08);border:1px solid rgba(255,200,50,0.2);border-radius:var(--radius-sm);padding:14px;text-align:center;">
+            <div style="font-size:1.3rem;margin-bottom:4px;">⚠️</div>
+            <div style="font-size:0.82rem;font-weight:500;color:var(--charcoal);">PMS Window</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);">${cycle.daysUntilNextPeriod != null ? `in ${Math.max(0, cycle.daysUntilNextPeriod - 7)} days` : '—'}</div>
+          </div>
+          <div style="background:rgba(94,122,92,0.08);border:1px solid rgba(94,122,92,0.2);border-radius:var(--radius-sm);padding:14px;text-align:center;">
+            <div style="font-size:1.3rem;margin-bottom:4px;">🌕</div>
+            <div style="font-size:0.82rem;font-weight:500;color:var(--charcoal);">Next Phase</div>
+            <div style="font-size:0.75rem;color:var(--text-muted);">${cycle.nextPhase ? `${cycle.nextPhase} in ${cycle.daysUntilNextPhase}d` : '—'}</div>
+          </div>
+        </div>`;
+    }
+
+    // ── Load Aria Insight ────────────────────────────
+    async function loadAriaInsight() {
+      const insight = await GenFloAPI.ariaDailyInsight();
+      const el = document.getElementById('aria-insight');
+      if (insight && insight.insight) {
+        el.textContent = insight.insight;
+      } else {
+        el.textContent = 'Chat with Aria to get your personalized daily insight based on your cycle phase.';
+      }
+    }
+
+    // ── Load Today's Log ─────────────────────────────
+    async function loadTodayLog() {
+      const log = await GenFloAPI.getTodayLog();
+      if (log && !log.error && log.mood) {
+        document.getElementById('log-energy').textContent = energyLabel(log.energy);
+        document.getElementById('log-mood').textContent = log.mood || '—';
+        document.getElementById('log-skin').textContent = log.oiliness != null ? (log.oiliness < 40 ? 'Balanced' : log.oiliness < 70 ? 'Oily' : 'Very Oily') : '—';
+        document.getElementById('glance-energy').textContent = energyLabel(log.energy);
+        document.getElementById('glance-mood').textContent = log.mood || '—';
+      } else {
+        document.getElementById('glance-energy').textContent = '—';
+        document.getElementById('glance-mood').textContent = '—';
+      }
+    }
+
+    // ── Load Supplements ─────────────────────────────
+    async function loadSupplements() {
+      const sups = await GenFloAPI.getSupplements();
+      const el = document.getElementById('reminders-content');
+      if (sups && Array.isArray(sups) && sups.length > 0) {
+        el.innerHTML = sups.map(s => `
+          <label style="display:flex;align-items:center;gap:10px;font-size:0.82rem;cursor:pointer;">
+            <input type="checkbox" style="accent-color:var(--sage-dark);" ${s.taken ? 'checked' : ''} disabled />
+            <span style="color:${s.taken ? 'var(--text-muted)' : 'var(--charcoal)'};">${s.supplement} (${s.time_of_day?.toUpperCase() || ''})</span>
+          </label>`).join('');
+      } else {
+        el.innerHTML = `<div style="font-size:0.8rem;color:var(--text-muted);text-align:center;padding:12px 0;">No supplements logged.<br><a href="wellness.html" style="color:var(--sage-dark);">Set up reminders →</a></div>`;
+      }
+    }
+
+    // ── Load Partner & Nudges ────────────────────────
+    async function loadPartnerData() {
+      const partner = await GenFloAPI.getPartner();
+      if (!partner || partner.error || !partner.partner_name) return;
+
+      // Schedule title
+      document.getElementById('partner-schedule-title').textContent = `${partner.partner_name}'s Week`;
+
+      // Schedule
+      const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      const schedule = partner.schedule || [];
+      if (schedule.length > 0) {
+        document.getElementById('partner-schedule-content').innerHTML = schedule.map((s, i) => `
+          <div class="side-metric">
+            <span class="side-metric-label">${days[i] || s.day || `Day ${i+1}`}</span>
+            <span class="side-metric-value">${s.hours || s.status || 'Free'}</span>
+          </div>`).join('');
+      } else {
+        document.getElementById('partner-schedule-content').innerHTML = `<div style="font-size:0.8rem;color:var(--text-muted);text-align:center;padding:8px 0;">No schedule set yet.<br><a href="partner.html" style="color:var(--sage-dark);">Add schedule →</a></div>`;
+      }
+
+      // Show nudge card
+      document.getElementById('nudge-card').style.display = 'block';
+
+      // Load nudges
+      const nudges = await GenFloAPI.getNudges();
+      const nudgeCard = document.getElementById('nudge-content');
+      const historyEl = document.getElementById('nudge-history-content');
+      const badge = document.getElementById('nudge-badge');
+
+      if (nudges && Array.isArray(nudges) && nudges.length > 0) {
+        const unread = nudges.filter(n => !n.read);
+        if (unread.length > 0) {
+          badge.textContent = `${unread.length} new`;
+          badge.style.display = 'inline';
+          nudgeCard.innerHTML = unread.slice(0, 1).map(n => `
+            <div class="nudge-widget">
+              <div class="nudge-from">💬 ${partner.partner_name} sent — ${timeAgo(n.sent_at)}</div>
+              <div class="nudge-text">"${n.message}"</div>
+              <div class="nudge-actions">
+                <a href="aria.html" class="nudge-btn secondary">Reply via Aria</a>
+              </div>
+            </div>`).join('');
+        } else {
+          nudgeCard.innerHTML = `<div style="font-size:0.85rem;color:var(--text-muted);text-align:center;padding:16px 0;">No new nudges.</div>`;
+        }
+
+        historyEl.innerHTML = nudges.slice(0, 5).map(n => `
+          <div class="nudge-log-item">
+            <div class="nudge-log-avatar">${(partner.partner_name || 'P')[0].toUpperCase()}</div>
+            <div>
+              <div class="nudge-log-text">"${n.message}" — <em>${partner.partner_name}</em></div>
+              <div class="nudge-log-time">${timeAgo(n.sent_at)}</div>
+            </div>
+          </div>`).join('');
+      } else {
+        nudgeCard.innerHTML = `<div style="font-size:0.85rem;color:var(--text-muted);text-align:center;padding:16px 0;">No nudges yet.</div>`;
+        historyEl.innerHTML = `<div style="font-size:0.8rem;color:var(--text-muted);text-align:center;padding:12px 0;">No messages yet.</div>`;
+      }
+    }
+
+    // ── Init ─────────────────────────────────────────
+    loadCycle();
+    loadAriaInsight();
+    loadTodayLog();
+    loadSupplements();
+    loadPartnerData();
+  </script>
+</body>
+</html>

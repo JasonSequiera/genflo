@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Begin Your Journey — GenFlo</title>
+  <meta name="description"
+    content="Create your GenFlo account and start understanding your cycle with AI companion Aria." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/api.js"></script>
+  <style>
+    .onboarding-hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--sage-bg) 0%, var(--cream) 60%, rgba(201, 124, 93, 0.06) 100%);
+      display: flex;
+      align-items: center;
+      padding: 100px 24px 60px;
+    }
+
+    .onboarding-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .onboarding-left h1 {
+      margin-bottom: 16px;
+    }
+
+    .onboarding-left p {
+      font-size: 1.05rem;
+      margin-bottom: 32px;
+      line-height: 1.8;
+    }
+
+    .onboarding-perks {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .perk {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.9rem;
+      color: var(--charcoal);
+    }
+
+    .perk-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(143, 172, 141, 0.15);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    /* Step system */
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    .step-indicators {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+      justify-content: center;
+    }
+
+    .step-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--card-border);
+      transition: var(--transition);
+    }
+
+    .step-dot.active {
+      background: var(--sage-dark);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    .condition-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .condition-btn {
+      background: var(--white);
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: var(--charcoal);
+      transition: var(--transition);
+      font-family: var(--font-body);
+    }
+
+    .condition-btn:hover,
+    .condition-btn.selected {
+      border-color: var(--sage);
+      background: rgba(143, 172, 141, 0.08);
+      color: var(--sage-dark);
+    }
+
+    @media (max-width: 768px) {
+      .onboarding-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .onboarding-left {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav id="main-nav" class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo"><span class="logo-mark">⬡</span>GenFlo</a>
+      <div class="nav-actions">
+        <a href="login.html" class="btn-ghost">Already have an account?</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="onboarding-hero">
+    <div class="onboarding-grid">
+
+      <!-- Left Panel -->
+      <div class="onboarding-left">
+        <div class="section-badge">Welcome to GenFlo</div>
+        <h1>Your Journey Begins Here</h1>
+        <p>GenFlo is your intelligent menstrual wellness companion — combining cycle science, hormonal skincare,
+          nutrition and partner connection in one beautiful app.</p>
+        <div class="onboarding-perks">
+          <div class="perk">
+            <div class="perk-icon">🌙</div><span>Visual cycle tracking with predictive forecasting</span>
+          </div>
+          <div class="perk">
+            <div class="perk-icon">🤖</div><span>AI companion Aria available 24/7</span>
+          </div>
+          <div class="perk">
+            <div class="perk-icon">✨</div><span>Phase-based skincare & nutrition guidance</span>
+          </div>
+          <div class="perk">
+            <div class="perk-icon">💑</div><span>Partner sync & AI date planning</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Panel — Form -->
+      <div class="form-card">
+        <div class="step-indicators" id="step-indicators">
+          <div class="step-dot active" id="dot-1"></div>
+          <div class="step-dot" id="dot-2"></div>
+          <div class="step-dot" id="dot-3"></div>
+          <div class="step-dot" id="dot-4"></div>
+        </div>
+
+        <!-- Step 1: Account -->
+        <div class="step active" id="step-1">
+          <h2>Create Account</h2>
+          <p class="sub">Start your GenFlo journey</p>
+          <div class="form-group">
+            <label for="ob-name">Your Name</label>
+            <input type="text" id="ob-name" placeholder="e.g. Sofia" required />
+          </div>
+          <div class="form-group">
+            <label for="ob-email">Email</label>
+            <input type="email" id="ob-email" placeholder="you@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="ob-password">Password</label>
+            <input type="password" id="ob-password" placeholder="Create a strong password" required />
+          </div>
+          <button class="btn-primary form-submit" onclick="nextStep(2)">Continue →</button>
+        </div>
+
+        <!-- Step 2: Cycle Info -->
+        <div class="step" id="step-2">
+          <h2>Your Cycle</h2>
+          <p class="sub">Help Aria understand your rhythm</p>
+          <div class="form-group">
+            <label for="ob-period-start">Last Period Start Date</label>
+            <input type="date" id="ob-period-start" />
+          </div>
+          <div class="form-group">
+            <label for="ob-cycle-length">Average Cycle Length</label>
+            <select id="ob-cycle-length">
+              <option>24 days</option>
+              <option selected>28 days</option>
+              <option>30 days</option>
+              <option>32 days</option>
+              <option>Irregular</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="ob-period-length">Average Period Length</label>
+            <select id="ob-period-length">
+              <option>3 days</option>
+              <option>4 days</option>
+              <option selected>5 days</option>
+              <option>6 days</option>
+              <option>7+ days</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <button class="btn-ghost" style="flex:1;" onclick="nextStep(1)">← Back</button>
+            <button class="btn-primary" style="flex:2;" onclick="nextStep(3)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Conditions -->
+        <div class="step" id="step-3">
+          <h2>Health Profile</h2>
+          <p class="sub">Select any conditions you manage (optional)</p>
+          <div class="condition-grid">
+            <button class="condition-btn" onclick="this.classList.toggle('selected')">🔵 PCOS / PCOD</button>
+            <button class="condition-btn" onclick="this.classList.toggle('selected')">🟣 PMDD / PMS</button>
+            <button class="condition-btn" onclick="this.classList.toggle('selected')">🟠 Endometriosis</button>
+            <button class="condition-btn" onclick="this.classList.toggle('selected')">🟡 Thyroid</button>
+            <button class="condition-btn" onclick="this.classList.toggle('selected')">🟢 None</button>
+            <button class="condition-btn" onclick="this.classList.toggle('selected')">⚪ Prefer not to say</button>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <button class="btn-ghost" style="flex:1;" onclick="nextStep(2)">← Back</button>
+            <button class="btn-primary" style="flex:2;" onclick="nextStep(4)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Partner -->
+        <div class="step" id="step-4">
+          <h2>Partner Sync</h2>
+          <p class="sub">Connect a partner to unlock date planning & schedule sync (optional)</p>
+          <div class="form-group">
+            <label for="ob-partner-name">Partner's Name</label>
+            <input type="text" id="ob-partner-name" placeholder="e.g. Jamie (optional)" />
+          </div>
+          <div class="form-group">
+            <label for="ob-partner-email">Partner's Email</label>
+            <input type="email" id="ob-partner-email" placeholder="Invite them to connect (optional)" />
+          </div>
+          <div style="display:flex;gap:12px;margin-bottom:16px;">
+            <button class="btn-ghost" style="flex:1;" onclick="nextStep(3)">← Back</button>
+            <button class="btn-primary" style="flex:2;" onclick="finishOnboarding()">Begin Journey 🌿</button>
+          </div>
+          <p style="text-align:center;font-size:0.8rem;color:var(--text-muted);">You can add a partner anytime from
+            settings</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Redirect if already logged in
+    if (GenFloAPI.isLoggedIn()) window.location.href = 'dashboard.html';
+
+    let currentStep = 1;
+    const userData = {};
+
+    function nextStep(n) {
+      // Validate step 1 before proceeding
+      if (currentStep === 1 && n === 2) {
+        const name = document.getElementById('ob-name').value.trim();
+        const email = document.getElementById('ob-email').value.trim();
+        const password = document.getElementById('ob-password').value;
+        if (!name || !email || !password) {
+          alert('Please fill in all fields to continue.');
+          return;
+        }
+        if (password.length < 6) {
+          alert('Password must be at least 6 characters.');
+          return;
+        }
+        userData.name = name;
+        userData.email = email;
+        userData.password = password;
+      }
+      document.getElementById('step-' + currentStep).classList.remove('active');
+      document.getElementById('dot-' + currentStep).classList.remove('active');
+      currentStep = n;
+      document.getElementById('step-' + currentStep).classList.add('active');
+      document.getElementById('dot-' + currentStep).classList.add('active');
+    }
+
+    async function finishOnboarding() {
+      const btn = event.target;
+      btn.textContent = 'Setting up your journey...';
+      btn.disabled = true;
+
+      // Step 1: Register the user
+      const regResult = await GenFloAPI.register(
+        userData.name,
+        userData.email,
+        userData.password
+      );
+
+      if (!regResult || regResult.error) {
+        alert('Registration failed: ' + (regResult?.error || 'Unknown error. Please try again.'));
+        btn.textContent = 'Begin Journey 🌿';
+        btn.disabled = false;
+        return;
+      }
+
+      // Step 2: Save cycle data
+      const periodStart = document.getElementById('ob-period-start').value;
+      const cycleLengthText = document.getElementById('ob-cycle-length').value;
+      const periodLengthText = document.getElementById('ob-period-length').value;
+
+      const cycleLength = parseInt(cycleLengthText) || 28;
+      const periodLength = parseInt(periodLengthText) || 5;
+
+      // Collect selected conditions
+      const conditions = [];
+      document.querySelectorAll('.condition-btn.selected').forEach(btn => {
+        const text = btn.textContent.trim().toLowerCase();
+        if (text.includes('pcos') || text.includes('pcod')) conditions.push('pcos');
+        if (text.includes('pmdd') || text.includes('pms')) conditions.push('pmdd');
+        if (text.includes('endo')) conditions.push('endometriosis');
+        if (text.includes('thyroid')) conditions.push('thyroid');
+      });
+
+      if (periodStart) {
+        await GenFloAPI.setupCycle({
+          period_start: periodStart,
+          cycle_length: cycleLength,
+          period_length: periodLength,
+          conditions
+        });
+      }
+
+      // Step 3: Connect partner (optional)
+      const partnerName = document.getElementById('ob-partner-name').value.trim();
+      const partnerEmail = document.getElementById('ob-partner-email').value.trim();
+      if (partnerName) {
+        await GenFloAPI.connectPartner({ partner_name: partnerName, partner_email: partnerEmail });
+      }
+
+      window.location.href = 'dashboard.html';
+    }
+  </script>
+</body>
+
+</html>

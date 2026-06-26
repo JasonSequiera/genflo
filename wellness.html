@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nutrition & Fitness — GenFlo</title>
+  <meta name="description" content="Cycle-synced nutrition, adaptive workouts and supplement tracking by GenFlo wellness." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/api.js"></script>
+  <script src="js/navbar.js"></script>
+  <style>
+    .food-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 16px; }
+    .food-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-md); padding: 16px; text-align: center; backdrop-filter: blur(8px); transition: var(--transition); }
+    .food-card:hover { border-color: var(--sage); transform: translateY(-2px); }
+    .food-icon { font-size: 2rem; margin-bottom: 8px; }
+    .food-card strong { display: block; font-size: 0.85rem; color: var(--charcoal); margin-bottom: 4px; }
+    .food-card small { font-size: 0.75rem; color: var(--text-muted); }
+    .workout-option { background: var(--card-bg); border: 1.5px solid var(--card-border); border-radius: var(--radius-md); padding: 16px 20px; cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: space-between; backdrop-filter: blur(8px); }
+    .workout-option.recommended { border-color: var(--sage); background: rgba(94,122,92,0.06); }
+    .workout-option:hover { border-color: var(--sage); }
+    .workout-option .wo-info strong { display: block; font-size: 0.92rem; color: var(--charcoal); margin-bottom: 4px; }
+    .workout-option .wo-info small { font-size: 0.78rem; color: var(--text-muted); }
+    .wo-badge { font-size: 0.72rem; padding: 3px 10px; border-radius: 100px; font-weight: 600; }
+    .wo-badge.best { background: rgba(94,122,92,0.15); color: var(--sage-dark); border: 1px solid var(--sage); }
+    .wo-badge.ok { background: rgba(212,184,150,0.15); color: #8a6a40; border: 1px solid #d4b896; }
+    .wo-badge.rest { background: rgba(201,124,93,0.1); color: var(--terracotta); border: 1px solid rgba(201,124,93,0.3); }
+    .supp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .supp-section { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-md); padding: 20px; backdrop-filter: blur(8px); }
+    .supp-section h5 { font-size: 0.85rem; font-weight: 600; color: var(--charcoal); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.04em; }
+  </style>
+</head>
+<body>
+
+    <nav id="main-nav" class="gf-navbar">
+    <div class="gf-navbar-inner">
+      <a href="dashboard.html" class="gf-navbar-logo">
+        <span class="gf-logo-mark">⬡</span>GenFlo
+      </a>
+      <ul class="gf-nav-links">
+        <li><a href="dashboard.html" class="gf-nav-link" id="nav-home"><span class="gf-nav-icon">🏠</span>Home</a></li>
+        <li><a href="cycle.html" class="gf-nav-link" id="nav-cycle"><span class="gf-nav-icon">🌙</span>Cycle</a></li>
+        <li><a href="skin.html" class="gf-nav-link" id="nav-skin"><span class="gf-nav-icon">✨</span>Skin</a></li>
+        <li><a href="wellness.html" class="gf-nav-link" id="nav-wellness" class="gf-nav-link active"><span class="gf-nav-icon">🥗</span>Wellness</a></li>
+        <li><a href="partner.html" class="gf-nav-link" id="nav-partner"><span class="gf-nav-icon">💑</span>Partner</a></li>
+        <li><a href="aria.html" class="gf-nav-link" id="nav-aria"><span class="gf-nav-icon">🤖</span>Aria</a></li>
+      </ul>
+      <div class="gf-nav-right">
+        <div class="gf-profile-menu" id="gf-profile-menu">
+          <button class="gf-profile-trigger" id="gf-profile-trigger" aria-label="Profile menu">
+            <div class="gf-avatar" id="nav-avatar-sm">U</div>
+            <span class="gf-profile-name" id="nav-user-name">User</span>
+            <svg class="gf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="gf-profile-dropdown" id="gf-profile-dropdown">
+            <div class="gf-dropdown-header">
+              <div class="gf-avatar gf-avatar-lg" id="nav-avatar-lg">U</div>
+              <div>
+                <div class="gf-dropdown-name" id="nav-user-name-dropdown">User</div>
+                <div class="gf-dropdown-role">GenFlo Member</div>
+              </div>
+            </div>
+            <div class="gf-dropdown-divider"></div>
+            <a href="dashboard.html" class="gf-dropdown-item"><span>🏠</span> Dashboard</a>
+            <a href="onboarding.html" class="gf-dropdown-item"><span>⚙️</span> Settings</a>
+            <div class="gf-dropdown-divider"></div>
+            <button class="gf-dropdown-item gf-signout-btn" id="gf-signout-btn"><span>🚪</span> Sign Out</button>
+          </div>
+        </div>
+      </div>
+      <button class="gf-burger" id="gf-burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="gf-mobile-menu" id="gf-mobile-menu">
+      <a href="dashboard.html" class="gf-mobile-link" id="mob-home"><span class="gf-nav-icon">🏠</span>Home</a>
+      <a href="cycle.html" class="gf-mobile-link" id="mob-cycle"><span class="gf-nav-icon">🌙</span>Cycle</a>
+      <a href="skin.html" class="gf-mobile-link" id="mob-skin"><span class="gf-nav-icon">✨</span>Skin</a>
+      <a href="wellness.html" class="gf-mobile-link" id="mob-wellness"><span class="gf-nav-icon">🥗</span>Wellness</a>
+      <a href="partner.html" class="gf-mobile-link" id="mob-partner"><span class="gf-nav-icon">💑</span>Partner</a>
+      <a href="aria.html" class="gf-mobile-link" id="mob-aria"><span class="gf-nav-icon">🤖</span>Aria</a>
+      <div class="gf-mobile-divider"></div>
+      <button class="gf-mobile-signout" id="gf-mobile-signout">🚪 Sign Out</button>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="section-badge">🥗 Nutrition & Fitness</div>
+      <h1>Fuel & Move With Your Cycle</h1>
+      <p>Cycle-synced food recommendations, daily supplement tracking and hormone-aware workout guidance.</p>
+    </div>
+  </section>
+
+  <div class="page-content">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:28px;">
+
+        <div style="display:flex;flex-direction:column;gap:20px;">
+
+          <!-- Nutrition -->
+          <div class="dashboard-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+              <h3 style="margin-bottom:0;">🥗 Today's Nutrition Focus</h3>
+              <div class="skin-phase-badge ovulatory" style="background:rgba(94,122,92,0.12);border:1px solid var(--sage);padding:5px 14px;border-radius:100px;font-size:0.78rem;font-weight:500;color:var(--sage-dark);">🌕 Ovulatory</div>
+            </div>
+            <div style="background:rgba(143,172,141,0.08);border:1px solid var(--card-border);border-radius:var(--radius-md);padding:18px;margin-bottom:20px;">
+              <p style="font-size:0.9rem;line-height:1.7;color:var(--charcoal);">During ovulation, your metabolism increases slightly and estrogen is high. Support your body with <strong>antioxidant-rich foods</strong> to protect egg quality, <strong>zinc</strong> for hormonal balance, and <strong>fiber</strong> to keep estrogen processing on track.</p>
+            </div>
+            <div class="food-grid">
+              <div class="food-card"><div class="food-icon">🫐</div><strong>Blueberries</strong><small>Antioxidants</small></div>
+              <div class="food-card"><div class="food-icon">🥬</div><strong>Leafy Greens</strong><small>Iron & folate</small></div>
+              <div class="food-card"><div class="food-icon">🎃</div><strong>Pumpkin Seeds</strong><small>Zinc-rich</small></div>
+              <div class="food-card"><div class="food-icon">🐟</div><strong>Salmon</strong><small>Omega-3 fatty acids</small></div>
+              <div class="food-card"><div class="food-icon">🥑</div><strong>Avocado</strong><small>Healthy fats</small></div>
+              <div class="food-card"><div class="food-icon">🫘</div><strong>Chickpeas</strong><small>Zinc & protein</small></div>
+              <div class="food-card"><div class="food-icon">🍳</div><strong>Eggs</strong><small>Protein & choline</small></div>
+              <div class="food-card"><div class="food-icon">💧</div><strong>Extra Water</strong><small>Increased hydration needs</small></div>
+            </div>
+            <div style="margin-top:16px;padding:14px;background:rgba(201,124,93,0.06);border:1px solid rgba(201,124,93,0.15);border-radius:var(--radius-sm);">
+              <p style="font-size:0.82rem;color:var(--charcoal);">⚠️ <strong>Limit today:</strong> Refined sugar, alcohol and ultra-processed foods — these can disrupt the estrogen peak and cause energy crashes.</p>
+            </div>
+          </div>
+
+          <!-- Workout -->
+          <div class="dashboard-card">
+            <h3>⚡ Adaptive Workout Planner</h3>
+            <p style="font-size:0.88rem;margin-bottom:20px;">Based on your Ovulatory phase, your body is at its strongest and most energetic. Here are your ranked workout options:</p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div class="workout-option recommended">
+                <div style="display:flex;align-items:center;gap:14px;">
+                  <span style="font-size:1.5rem;">🔥</span>
+                  <div class="wo-info"><strong>HIIT Training</strong><small>High Intensity Interval Training — your body is primed</small></div>
+                </div>
+                <span class="wo-badge best">⭐ Best Today</span>
+              </div>
+              <div class="workout-option">
+                <div style="display:flex;align-items:center;gap:14px;">
+                  <span style="font-size:1.5rem;">🏋️</span>
+                  <div class="wo-info"><strong>Strength Training</strong><small>Peak testosterone means you can lift heavier today</small></div>
+                </div>
+                <span class="wo-badge best">Great</span>
+              </div>
+              <div class="workout-option">
+                <div style="display:flex;align-items:center;gap:14px;">
+                  <span style="font-size:1.5rem;">🏃</span>
+                  <div class="wo-info"><strong>Running / Cycling</strong><small>Cardiovascular endurance is high</small></div>
+                </div>
+                <span class="wo-badge ok">Good</span>
+              </div>
+              <div class="workout-option">
+                <div style="display:flex;align-items:center;gap:14px;">
+                  <span style="font-size:1.5rem;">🧘</span>
+                  <div class="wo-info"><strong>Yoga / Stretching</strong><small>Not the most optimal but still beneficial</small></div>
+                </div>
+                <span class="wo-badge ok">Optional</span>
+              </div>
+              <div class="workout-option">
+                <div style="display:flex;align-items:center;gap:14px;">
+                  <span style="font-size:1.5rem;">😴</span>
+                  <div class="wo-info"><strong>Full Rest</strong><small>Save rest days for Luteal/Menstrual phases</small></div>
+                </div>
+                <span class="wo-badge rest">Not Recommended</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Supplements -->
+          <div class="dashboard-card">
+            <h3>💊 Daily Supplement Checklist</h3>
+            <p style="font-size:0.88rem;margin-bottom:20px;">Aria's curated AM/PM supplement routine based on your Ovulatory phase and health profile.</p>
+            <div class="supp-grid">
+              <div class="supp-section">
+                <h5>☀️ Morning — AM</h5>
+                <label class="supp-item"><input type="checkbox" checked style="accent-color:var(--sage-dark);" /><div><strong style="font-size:0.85rem;color:var(--charcoal);">Vitamin D3</strong><span style="font-size:0.75rem;color:var(--text-muted);display:block;">2000 IU — with food</span></div></label>
+                <label class="supp-item"><input type="checkbox" checked style="accent-color:var(--sage-dark);" /><div><strong style="font-size:0.85rem;color:var(--charcoal);">Omega-3 Fish Oil</strong><span style="font-size:0.75rem;color:var(--text-muted);display:block;">1000mg — reduces inflammation</span></div></label>
+                <label class="supp-item"><input type="checkbox" style="accent-color:var(--sage-dark);" /><div><strong style="font-size:0.85rem;color:var(--charcoal);">Zinc Bisglycinate</strong><span style="font-size:0.75rem;color:var(--text-muted);display:block;">15mg — hormonal support</span></div></label>
+                <label class="supp-item"><input type="checkbox" style="accent-color:var(--sage-dark);" /><div><strong style="font-size:0.85rem;color:var(--charcoal);">Folate (B9)</strong><span style="font-size:0.75rem;color:var(--text-muted);display:block;">400mcg — cell health</span></div></label>
+              </div>
+              <div class="supp-section">
+                <h5>🌙 Evening — PM</h5>
+                <label class="supp-item"><input type="checkbox" style="accent-color:var(--sage-dark);" /><div><strong style="font-size:0.85rem;color:var(--charcoal);">Magnesium Glycinate</strong><span style="font-size:0.75rem;color:var(--text-muted);display:block;">300mg — sleep & calm</span></div></label>
+                <label class="supp-item"><input type="checkbox" style="accent-color:var(--sage-dark);" /><div><strong style="font-size:0.85rem;color:var(--charcoal);">Evening Primrose Oil</strong><span style="font-size:0.75rem;color:var(--text-muted);display:block;">1000mg — hormonal balance</span></div></label>
+                <label class="supp-item"><input type="checkbox" style="accent-color:var(--sage-dark);" /><div><strong style="font-size:0.85rem;color:var(--charcoal);">Vitamin E</strong><span style="font-size:0.75rem;color:var(--text-muted);display:block;">200IU — antioxidant</span></div></label>
+                <label class="supp-item"><input type="checkbox" style="accent-color:var(--sage-dark);" /><div><strong style="font-size:0.85rem;color:var(--charcoal);">Ashwagandha</strong><span style="font-size:0.75rem;color:var(--text-muted);display:block;">300mg — stress resilience</span></div></label>
+              </div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:12px;">
+              <button class="btn-primary" onclick="alert('Supplements logged! ✓')">Save Progress</button>
+              <a href="aria.html" class="btn-outline">Ask Aria about supplements →</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Sidebar -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="sidebar-card">
+            <h4>Phase Snapshot</h4>
+            <div style="text-align:center;padding:12px 0 20px;">
+              <div style="font-size:2.2rem;margin-bottom:8px;">⚡</div>
+              <div style="font-family:var(--font-display);font-size:1.3rem;color:var(--sage-dark);">Peak Energy</div>
+              <div style="font-size:0.78rem;color:var(--text-muted);">Ovulatory — Day 14</div>
+            </div>
+            <div style="font-size:0.82rem;line-height:1.7;color:var(--charcoal);background:rgba(143,172,141,0.08);border-radius:var(--radius-sm);padding:12px;">
+              Testosterone and estrogen are both peaking. Your athletic performance is at its maximum. Lift heavier, run faster — your body can handle it.
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h4>Energy & Vitals</h4>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:6px;"><span>Physical Energy</span><span style="color:var(--sage-dark);">High</span></div>
+                <div style="height:6px;background:var(--card-border);border-radius:100px;"><div style="width:90%;height:100%;background:linear-gradient(90deg,var(--sage),var(--sage-dark));border-radius:100px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:6px;"><span>Mental Focus</span><span style="color:var(--sage-dark);">High</span></div>
+                <div style="height:6px;background:var(--card-border);border-radius:100px;"><div style="width:85%;height:100%;background:linear-gradient(90deg,var(--sage),var(--sage-dark));border-radius:100px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:6px;"><span>Recovery Need</span><span style="color:var(--text-muted);">Low</span></div>
+                <div style="height:6px;background:var(--card-border);border-radius:100px;"><div style="width:20%;height:100%;background:linear-gradient(90deg,var(--terracotta-light),var(--terracotta));border-radius:100px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:6px;"><span>Pain Tolerance</span><span style="color:var(--sage-dark);">Peak</span></div>
+                <div style="height:6px;background:var(--card-border);border-radius:100px;"><div style="width:95%;height:100%;background:linear-gradient(90deg,var(--sage),var(--sage-dark));border-radius:100px;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h4>Aria Wellness Tip</h4>
+            <div style="background:rgba(143,172,141,0.08);border-radius:var(--radius-sm);padding:14px;font-size:0.82rem;color:var(--charcoal);line-height:1.7;">
+              🥗 Today is the perfect day to try a new challenging workout AND meal prep some zinc-rich foods for later this week when you head into Luteal!
+            </div>
+            <a href="aria.html" style="display:block;margin-top:12px;" class="btn-outline">Chat with Aria →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

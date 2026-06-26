@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hormonal Skincare — GenFlo</title>
+  <meta name="description" content="Phase-based hormonal skincare guide, daily skin tracker and adaptive routine recommendations by GenFlo." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/api.js"></script>
+  <script src="js/navbar.js"></script>
+  <style>
+    .phase-tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+    .ptab { padding: 10px 20px; border-radius: 100px; border: 1.5px solid var(--card-border); background: var(--white); font-size: 0.85rem; cursor: pointer; transition: var(--transition); font-family: var(--font-body); color: var(--charcoal); }
+    .ptab.active, .ptab:hover { background: var(--sage-dark); color: white; border-color: var(--sage-dark); }
+    .skin-content { display: none; }
+    .skin-content.active { display: block; }
+    .routine-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+    .routine-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-md); padding: 20px; backdrop-filter: blur(8px); }
+    .routine-card h5 { font-size: 0.85rem; font-weight: 600; color: var(--charcoal); margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .product-list { display: flex; flex-direction: column; gap: 10px; }
+    .product-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: rgba(143,172,141,0.08); border-radius: var(--radius-sm); }
+    .product-item .product-icon { font-size: 1.2rem; }
+    .product-item strong { display: block; font-size: 0.82rem; color: var(--charcoal); }
+    .product-item small { font-size: 0.75rem; color: var(--text-muted); }
+    .slider-interactive { width: 100%; accent-color: var(--sage-dark); height: 6px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+    <nav id="main-nav" class="gf-navbar">
+    <div class="gf-navbar-inner">
+      <a href="dashboard.html" class="gf-navbar-logo">
+        <span class="gf-logo-mark">⬡</span>GenFlo
+      </a>
+      <ul class="gf-nav-links">
+        <li><a href="dashboard.html" class="gf-nav-link" id="nav-home"><span class="gf-nav-icon">🏠</span>Home</a></li>
+        <li><a href="cycle.html" class="gf-nav-link" id="nav-cycle"><span class="gf-nav-icon">🌙</span>Cycle</a></li>
+        <li><a href="skin.html" class="gf-nav-link" id="nav-skin" class="gf-nav-link active"><span class="gf-nav-icon">✨</span>Skin</a></li>
+        <li><a href="wellness.html" class="gf-nav-link" id="nav-wellness"><span class="gf-nav-icon">🥗</span>Wellness</a></li>
+        <li><a href="partner.html" class="gf-nav-link" id="nav-partner"><span class="gf-nav-icon">💑</span>Partner</a></li>
+        <li><a href="aria.html" class="gf-nav-link" id="nav-aria"><span class="gf-nav-icon">🤖</span>Aria</a></li>
+      </ul>
+      <div class="gf-nav-right">
+        <div class="gf-profile-menu" id="gf-profile-menu">
+          <button class="gf-profile-trigger" id="gf-profile-trigger" aria-label="Profile menu">
+            <div class="gf-avatar" id="nav-avatar-sm">U</div>
+            <span class="gf-profile-name" id="nav-user-name">User</span>
+            <svg class="gf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="gf-profile-dropdown" id="gf-profile-dropdown">
+            <div class="gf-dropdown-header">
+              <div class="gf-avatar gf-avatar-lg" id="nav-avatar-lg">U</div>
+              <div>
+                <div class="gf-dropdown-name" id="nav-user-name-dropdown">User</div>
+                <div class="gf-dropdown-role">GenFlo Member</div>
+              </div>
+            </div>
+            <div class="gf-dropdown-divider"></div>
+            <a href="dashboard.html" class="gf-dropdown-item"><span>🏠</span> Dashboard</a>
+            <a href="onboarding.html" class="gf-dropdown-item"><span>⚙️</span> Settings</a>
+            <div class="gf-dropdown-divider"></div>
+            <button class="gf-dropdown-item gf-signout-btn" id="gf-signout-btn"><span>🚪</span> Sign Out</button>
+          </div>
+        </div>
+      </div>
+      <button class="gf-burger" id="gf-burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="gf-mobile-menu" id="gf-mobile-menu">
+      <a href="dashboard.html" class="gf-mobile-link" id="mob-home"><span class="gf-nav-icon">🏠</span>Home</a>
+      <a href="cycle.html" class="gf-mobile-link" id="mob-cycle"><span class="gf-nav-icon">🌙</span>Cycle</a>
+      <a href="skin.html" class="gf-mobile-link" id="mob-skin"><span class="gf-nav-icon">✨</span>Skin</a>
+      <a href="wellness.html" class="gf-mobile-link" id="mob-wellness"><span class="gf-nav-icon">🥗</span>Wellness</a>
+      <a href="partner.html" class="gf-mobile-link" id="mob-partner"><span class="gf-nav-icon">💑</span>Partner</a>
+      <a href="aria.html" class="gf-mobile-link" id="mob-aria"><span class="gf-nav-icon">🤖</span>Aria</a>
+      <div class="gf-mobile-divider"></div>
+      <button class="gf-mobile-signout" id="gf-mobile-signout">🚪 Sign Out</button>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="section-badge">✨ Hormonal Skincare</div>
+      <h1>Your Hormones, Your Glow</h1>
+      <p>Phase-based skincare insights powered by hormonal science and Aria's research-backed recommendations.</p>
+    </div>
+  </section>
+
+  <div class="page-content">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:28px;">
+
+        <div style="display:flex;flex-direction:column;gap:20px;">
+
+          <!-- Phase Tabs -->
+          <div class="dashboard-card">
+            <h3>Skin Guide by Phase</h3>
+            <div class="phase-tabs">
+              <button class="ptab" onclick="switchPhase('menstrual',this)">🌑 Menstrual</button>
+              <button class="ptab" onclick="switchPhase('follicular',this)">🌒 Follicular</button>
+              <button class="ptab active" onclick="switchPhase('ovulatory',this)">🌕 Ovulatory</button>
+              <button class="ptab" onclick="switchPhase('luteal',this)">🌘 Luteal</button>
+            </div>
+
+            <div id="skin-menstrual" class="skin-content" style="background:rgba(201,124,93,0.06);border:1px solid rgba(201,124,93,0.15);border-radius:var(--radius-md);padding:20px;">
+              <h4 style="margin-bottom:8px;">🌑 Menstrual Phase Skin</h4>
+              <p style="font-size:0.9rem;line-height:1.7;">Estrogen and progesterone both drop. Skin may be more sensitive, prone to redness and dryness. Focus on gentle, soothing and barrier-supporting products. Avoid harsh actives like strong retinoids or AHA peels.</p>
+              <div class="routine-grid">
+                <div class="routine-card"><h5>☀️ Morning</h5>
+                  <div class="product-list">
+                    <div class="product-item"><span class="product-icon">🧴</span><div><strong>Gentle Milky Cleanser</strong><small>Soothing, non-foaming</small></div></div>
+                    <div class="product-item"><span class="product-icon">💧</span><div><strong>Centella Serum</strong><small>Calms redness</small></div></div>
+                    <div class="product-item"><span class="product-icon">🌿</span><div><strong>Rich Moisturiser</strong><small>Barrier repair</small></div></div>
+                    <div class="product-item"><span class="product-icon">☀️</span><div><strong>Mineral SPF 50</strong><small>Gentle on sensitive skin</small></div></div>
+                  </div>
+                </div>
+                <div class="routine-card"><h5>🌙 Evening</h5>
+                  <div class="product-list">
+                    <div class="product-item"><span class="product-icon">💆</span><div><strong>Balm Cleanser</strong><small>Melts away impurities</small></div></div>
+                    <div class="product-item"><span class="product-icon">🫧</span><div><strong>Oat Toner</strong><small>Calming & hydrating</small></div></div>
+                    <div class="product-item"><span class="product-icon">🛡️</span><div><strong>Ceramide Cream</strong><small>Deep barrier repair</small></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="skin-follicular" class="skin-content" style="background:rgba(181,201,179,0.08);border:1px solid rgba(181,201,179,0.25);border-radius:var(--radius-md);padding:20px;">
+              <h4 style="margin-bottom:8px;">🌒 Follicular Phase Skin</h4>
+              <p style="font-size:0.9rem;line-height:1.7;">Rising estrogen improves skin cell turnover, plumpness and glow. Skin is more resilient — a great time to introduce or use stronger actives like light AHAs or Vitamin C.</p>
+              <div class="routine-grid">
+                <div class="routine-card"><h5>☀️ Morning</h5>
+                  <div class="product-list">
+                    <div class="product-item"><span class="product-icon">🧼</span><div><strong>Gel Cleanser</strong><small>Balancing</small></div></div>
+                    <div class="product-item"><span class="product-icon">🍊</span><div><strong>Vitamin C Serum</strong><small>Brightening</small></div></div>
+                    <div class="product-item"><span class="product-icon">💧</span><div><strong>Hyaluronic Acid</strong><small>Light hydration</small></div></div>
+                    <div class="product-item"><span class="product-icon">☀️</span><div><strong>SPF 50</strong><small>Everyday protection</small></div></div>
+                  </div>
+                </div>
+                <div class="routine-card"><h5>🌙 Evening</h5>
+                  <div class="product-list">
+                    <div class="product-item"><span class="product-icon">🧴</span><div><strong>Foaming Cleanser</strong><small>Deep cleanse</small></div></div>
+                    <div class="product-item"><span class="product-icon">⚗️</span><div><strong>Light AHA Toner</strong><small>Exfoliating</small></div></div>
+                    <div class="product-item"><span class="product-icon">🌿</span><div><strong>Light Moisturiser</strong><small>Fresh and hydrating</small></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="skin-ovulatory" class="skin-content active" style="background:rgba(94,122,92,0.06);border:1px solid rgba(94,122,92,0.2);border-radius:var(--radius-md);padding:20px;">
+              <h4 style="margin-bottom:8px;">🌕 Ovulatory Phase Skin — Your Glow Peak!</h4>
+              <p style="font-size:0.9rem;line-height:1.7;">Estrogen peaks and collagen production surges. Skin is naturally luminous with improved barrier function. You may notice a natural dewy glow. Maximize it with brightening and antioxidant-rich products.</p>
+              <div class="routine-grid">
+                <div class="routine-card"><h5>☀️ Morning</h5>
+                  <div class="product-list">
+                    <div class="product-item"><span class="product-icon">🧴</span><div><strong>Gel Cleanser</strong><small>Fresh start</small></div></div>
+                    <div class="product-item"><span class="product-icon">🍊</span><div><strong>Vitamin C Serum</strong><small>Brightening & antioxidant</small></div></div>
+                    <div class="product-item"><span class="product-icon">💧</span><div><strong>Hyaluronic Acid</strong><small>Lock in glow</small></div></div>
+                    <div class="product-item"><span class="product-icon">☀️</span><div><strong>SPF 50+</strong><small>Protect your peak skin</small></div></div>
+                  </div>
+                </div>
+                <div class="routine-card"><h5>🌙 Evening</h5>
+                  <div class="product-list">
+                    <div class="product-item"><span class="product-icon">🫧</span><div><strong>Micellar Water</strong><small>Gentle remove SPF</small></div></div>
+                    <div class="product-item"><span class="product-icon">⚗️</span><div><strong>Niacinamide Serum</strong><small>Pore-minimizing</small></div></div>
+                    <div class="product-item"><span class="product-icon">🌿</span><div><strong>Light Gel Moisturiser</strong><small>Non-occlusive</small></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="skin-luteal" class="skin-content" style="background:rgba(212,184,150,0.1);border:1px solid rgba(212,184,150,0.3);border-radius:var(--radius-md);padding:20px;">
+              <h4 style="margin-bottom:8px;">🌘 Luteal Phase Skin</h4>
+              <p style="font-size:0.9rem;line-height:1.7;">Progesterone rises, increasing sebum production. Pores appear larger and breakouts may occur around Days 21–28. Focus on balancing, anti-inflammatory and pore-clearing products.</p>
+              <div class="routine-grid">
+                <div class="routine-card"><h5>☀️ Morning</h5>
+                  <div class="product-list">
+                    <div class="product-item"><span class="product-icon">🧼</span><div><strong>Salicylic Cleanser</strong><small>Unclogs pores</small></div></div>
+                    <div class="product-item"><span class="product-icon">💊</span><div><strong>Niacinamide 10%</strong><small>Balances oil</small></div></div>
+                    <div class="product-item"><span class="product-icon">☀️</span><div><strong>Matte SPF 50</strong><small>Oil-control</small></div></div>
+                  </div>
+                </div>
+                <div class="routine-card"><h5>🌙 Evening</h5>
+                  <div class="product-list">
+                    <div class="product-item"><span class="product-icon">🧴</span><div><strong>BHA Toner</strong><small>Exfoliates & clears</small></div></div>
+                    <div class="product-item"><span class="product-icon">⚗️</span><div><strong>Retinol (light)</strong><small>Cell turnover</small></div></div>
+                    <div class="product-item"><span class="product-icon">🌿</span><div><strong>Oil-Free Moisturiser</strong><small>Hydrate without congesting</small></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Daily Tracker -->
+          <div class="dashboard-card">
+            <h3>Daily Skin Status Tracker</h3>
+            <p style="font-size:0.88rem;margin-bottom:24px;">Log your skin metrics today. Aria uses this data to refine your recommendations.</p>
+            <div style="display:flex;flex-direction:column;gap:20px;">
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:500;color:var(--charcoal);margin-bottom:10px;"><span>💧 Oiliness</span><span id="oiliness-val">45%</span></div>
+                <input type="range" min="0" max="100" value="45" class="slider-interactive" oninput="document.getElementById('oiliness-val').textContent=this.value+'%'" />
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:500;color:var(--charcoal);margin-bottom:10px;"><span>🌊 Hydration</span><span id="hydration-val">80%</span></div>
+                <input type="range" min="0" max="100" value="80" class="slider-interactive" oninput="document.getElementById('hydration-val').textContent=this.value+'%'" />
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:500;color:var(--charcoal);margin-bottom:10px;"><span>🔴 Sensitivity</span><span id="sensitivity-val">20%</span></div>
+                <input type="range" min="0" max="100" value="20" class="slider-interactive" oninput="document.getElementById('sensitivity-val').textContent=this.value+'%'" />
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:500;color:var(--charcoal);margin-bottom:10px;"><span>😣 Active Breakouts</span><span id="breakouts-val">0</span></div>
+                <input type="range" min="0" max="10" value="0" class="slider-interactive" oninput="document.getElementById('breakouts-val').textContent=this.value" />
+              </div>
+            </div>
+            <div style="margin-top:20px;display:flex;gap:12px;">
+              <button class="btn-primary" onclick="alert('Skin log saved! Aria will adjust your routine. ✨')">Save Today's Log</button>
+              <a href="aria.html" class="btn-outline">Ask Aria for Tips →</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Sidebar -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="sidebar-card">
+            <h4>Current Phase</h4>
+            <div style="text-align:center;padding:16px 0;">
+              <div style="font-size:2.5rem;margin-bottom:8px;">✨</div>
+              <div style="font-family:var(--font-display);font-size:1.3rem;color:var(--sage-dark);">Glow Peak</div>
+              <div style="font-size:0.78rem;color:var(--text-muted);">Ovulatory — Day 14</div>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h4>Skin Summary</h4>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;justify-content:space-between;font-size:0.82rem;">
+                <span style="color:var(--text-muted);">Overall Status</span>
+                <span style="color:var(--sage-dark);font-weight:600;">Glowing ✨</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:0.82rem;">
+                <span style="color:var(--text-muted);">Oiliness</span>
+                <span style="color:var(--charcoal);">Moderate</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:0.82rem;">
+                <span style="color:var(--text-muted);">Hydration</span>
+                <span style="color:var(--sage-dark);">High</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:0.82rem;">
+                <span style="color:var(--text-muted);">Breakout Risk</span>
+                <span style="color:var(--sage-dark);">Low 🟢</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h4>Aria Skin Tip</h4>
+            <div style="background:rgba(143,172,141,0.08);border-radius:var(--radius-sm);padding:14px;font-size:0.82rem;color:var(--charcoal);line-height:1.7;">
+              🌿 Your skin's natural collagen is at its peak today. Double your Vitamin C in the morning to maximize the antioxidant benefit!
+            </div>
+            <a href="aria.html" style="display:block;margin-top:12px;" class="btn-outline">Ask Aria more →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    function switchPhase(phase, btn) {
+      document.querySelectorAll('.skin-content').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
+      document.getElementById('skin-' + phase).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GenFlo — Understand Your Cycle, Elevate Your Life</title>
+  <meta name="description" content="GenFlo is your AI-powered menstrual wellness companion. Track your cycle, get personalized skincare, nutrition, fitness and relationship insights with Aria, your AI health companion." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════════ -->
+  <nav id="main-nav" class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <span class="logo-mark">⬡</span>GenFlo
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#cycle">Cycle</a></li>
+        <li><a href="#skin">Skin</a></li>
+        <li><a href="#wellness">Wellness</a></li>
+        <li><a href="#partner">Partner</a></li>
+        <li><a href="aria.html">Ask Aria</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn-ghost">Sign In</a>
+        <a href="onboarding.html" class="btn-primary">Begin Journey</a>
+      </div>
+      <button class="nav-burger" id="nav-burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="nav-mobile">
+      <a href="#features">Features</a>
+      <a href="#cycle">Cycle</a>
+      <a href="#skin">Skin</a>
+      <a href="#wellness">Wellness</a>
+      <a href="#partner">Partner</a>
+      <a href="aria.html">Ask Aria</a>
+      <a href="login.html">Sign In</a>
+      <a href="onboarding.html" class="btn-primary">Begin Journey</a>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-orb orb-1"></div>
+    <div class="hero-bg-orb orb-2"></div>
+    <div class="hero-content">
+      <div class="hero-badge">✦ Powered by Aria AI</div>
+      <h1 class="hero-title">
+        Understand Your Cycle.<br />
+        <em>Visualizing Your Journey.</em>
+      </h1>
+      <p class="hero-subtitle">
+        GenFlo is your intelligent wellness companion — blending cycle science,
+        hormonal skincare, nutrition, fitness, and partner sync into one
+        beautifully cohesive experience.
+      </p>
+      <div class="hero-cta">
+        <a href="onboarding.html" class="btn-primary btn-lg">Begin Your Journey</a>
+        <a href="dashboard.html" class="btn-ghost btn-lg">See Dashboard</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">4</span><span class="stat-label">Cycle Phases</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">28</span><span class="stat-label">Day Insights</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">AI</span><span class="stat-label">Companion Aria</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="cycle-orb">
+        <div class="orb-ring ring-outer">
+          <div class="phase-dot phase-menstrual" title="Menstrual"></div>
+          <div class="phase-dot phase-follicular" title="Follicular"></div>
+          <div class="phase-dot phase-ovulatory" title="Ovulatory"></div>
+          <div class="phase-dot phase-luteal" title="Luteal"></div>
+        </div>
+        <div class="orb-ring ring-inner"></div>
+        <div class="orb-center">
+          <span class="orb-day">Day 14</span>
+          <span class="orb-phase">Ovulatory</span>
+        </div>
+      </div>
+      <div class="floating-card card-skin">
+        <span class="card-icon">✨</span>
+        <div><strong>Skin Glow Peak</strong><br/><small>Estrogen is high today</small></div>
+      </div>
+      <div class="floating-card card-energy">
+        <span class="card-icon">⚡</span>
+        <div><strong>High Energy</strong><br/><small>Perfect for HIIT</small></div>
+      </div>
+      <div class="floating-card card-aria">
+        <span class="card-icon">🤖</span>
+        <div><strong>Aria says:</strong><br/><small>"Today is your peak — shine!"</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       PHASES STRIP
+  ══════════════════════════════════════ -->
+  <section class="phases-strip">
+    <div class="container">
+      <div class="phases-grid">
+        <div class="phase-card" data-phase="menstrual">
+          <div class="phase-icon">🌑</div>
+          <h3>Menstrual</h3>
+          <p>Rest, reflect and restore. Hormones are at their lowest.</p>
+          <div class="phase-days">Days 1–5</div>
+        </div>
+        <div class="phase-card" data-phase="follicular">
+          <div class="phase-icon">🌒</div>
+          <h3>Follicular</h3>
+          <p>Energy rises with estrogen. Great for new beginnings.</p>
+          <div class="phase-days">Days 6–13</div>
+        </div>
+        <div class="phase-card active" data-phase="ovulatory">
+          <div class="phase-icon">🌕</div>
+          <h3>Ovulatory</h3>
+          <p>Peak confidence and glow. Social and magnetic energy.</p>
+          <div class="phase-days">Days 14–16</div>
+        </div>
+        <div class="phase-card" data-phase="luteal">
+          <div class="phase-icon">🌘</div>
+          <h3>Luteal</h3>
+          <p>Wind down and nurture. Progesterone takes the lead.</p>
+          <div class="phase-days">Days 17–28</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FEATURES OVERVIEW
+  ══════════════════════════════════════ -->
+  <section class="features-overview" id="features">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Everything You Need</div>
+        <h2>One App. Every Phase. Every You.</h2>
+        <p>GenFlo unites cycle tracking, hormonal skincare, nutrition, fitness, and partner connection into a single, intelligent platform.</p>
+      </div>
+      <div class="features-bento">
+        <!-- Big card -->
+        <a href="dashboard.html" class="bento-card bento-large" id="bento-dashboard">
+          <div class="bento-icon">📊</div>
+          <h3>Daily Dashboard</h3>
+          <p>Your personalized at-a-glance view — cycle day, phase status, energy levels and Aria's daily insight, all in one place.</p>
+          <div class="bento-arrow">→</div>
+        </a>
+        <!-- Aria card -->
+        <a href="aria.html" class="bento-card bento-highlight" id="bento-aria">
+          <div class="bento-icon">🤖</div>
+          <h3>Aria AI Companion</h3>
+          <p>Your always-on hormonal health coach. Ask anything from skincare tips to emotional check-ins.</p>
+          <div class="bento-arrow">→</div>
+        </a>
+        <!-- Cycle card -->
+        <a href="cycle.html" class="bento-card" id="bento-cycle">
+          <div class="bento-icon">🌙</div>
+          <h3>Cycle Tracking</h3>
+          <p>Visual timeline, predictive forecasting & PCOS/PMDD management tools.</p>
+          <div class="bento-arrow">→</div>
+        </a>
+        <!-- Skin card -->
+        <a href="skin.html" class="bento-card" id="bento-skin">
+          <div class="bento-icon">✨</div>
+          <h3>Hormonal Skincare</h3>
+          <p>Phase-based skin guide, daily tracker & adaptive routine recommendations.</p>
+          <div class="bento-arrow">→</div>
+        </a>
+        <!-- Wellness card -->
+        <a href="wellness.html" class="bento-card" id="bento-wellness">
+          <div class="bento-icon">🥗</div>
+          <h3>Nutrition & Fitness</h3>
+          <p>Cycle-synced meals, supplement checklists & adaptive workout planning.</p>
+          <div class="bento-arrow">→</div>
+        </a>
+        <!-- Partner card big -->
+        <a href="partner.html" class="bento-card bento-large" id="bento-partner">
+          <div class="bento-icon">💑</div>
+          <h3>Partner Sync</h3>
+          <p>Sync schedules, share cycle insights with your partner and let Aria plan the perfect hormone-aware date nights.</p>
+          <div class="bento-arrow">→</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ARIA SECTION
+  ══════════════════════════════════════ -->
+  <section class="aria-section" id="aria-section">
+    <div class="container">
+      <div class="aria-split">
+        <div class="aria-text">
+          <div class="section-badge">Meet Your AI Companion</div>
+          <h2>Say Hello to Aria</h2>
+          <p>Aria is GenFlo's built-in AI health companion — always ready to answer your hormone questions, suggest today's skincare routine, log your symptoms, or simply check in on how you're feeling.</p>
+          <ul class="aria-features">
+            <li>✦ Personalized daily hormonal insights</li>
+            <li>✦ Skin & nutrition tips per phase</li>
+            <li>✦ Symptom logging through conversation</li>
+            <li>✦ Emotional support & mood check-ins</li>
+            <li>✦ Partner communication coaching</li>
+          </ul>
+          <a href="aria.html" class="btn-primary">Chat with Aria →</a>
+        </div>
+        <div class="aria-chat-preview">
+          <div class="chat-bubble aria-bubble">
+            <div class="chat-avatar">A</div>
+            <div class="chat-content">
+              <strong>Aria</strong>
+              <p>Good morning! 🌿 You're on Day 14 — your Ovulatory phase. Estrogen is peaking which means your skin is glowing and your energy is high. Perfect day for social plans or creative work!</p>
+            </div>
+          </div>
+          <div class="chat-bubble user-bubble">
+            <div class="chat-content">
+              <strong>You</strong>
+              <p>What should I eat today to support my hormones?</p>
+            </div>
+            <div class="chat-avatar user-avatar">U</div>
+          </div>
+          <div class="chat-bubble aria-bubble">
+            <div class="chat-avatar">A</div>
+            <div class="chat-content">
+              <strong>Aria</strong>
+              <p>During ovulation, focus on antioxidant-rich foods like berries, leafy greens, and zinc-rich seeds. These support egg health and the estrogen surge. 🫐✨</p>
+            </div>
+          </div>
+          <a href="aria.html" class="chat-cta">Continue chatting with Aria →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CYCLE SECTION PREVIEW
+  ══════════════════════════════════════ -->
+  <section class="preview-section" id="cycle">
+    <div class="container">
+      <div class="preview-split reverse">
+        <div class="preview-visual">
+          <div class="cycle-timeline-preview">
+            <div class="timeline-bar">
+              <div class="tl-phase tl-menstrual" style="width:18%">Menstrual</div>
+              <div class="tl-phase tl-follicular" style="width:29%">Follicular</div>
+              <div class="tl-phase tl-ovulatory tl-active" style="width:11%">Ovulatory</div>
+              <div class="tl-phase tl-luteal" style="width:42%">Luteal</div>
+            </div>
+            <div class="timeline-marker" style="left:50%">
+              <div class="marker-dot"></div>
+              <div class="marker-label">Day 14 — You are here</div>
+            </div>
+            <div class="forecast-cards">
+              <div class="forecast-card">
+                <span class="forecast-icon">🩸</span>
+                <div>
+                  <strong>Next Period</strong>
+                  <span>in 14 days</span>
+                </div>
+              </div>
+              <div class="forecast-card">
+                <span class="forecast-icon">⚠️</span>
+                <div>
+                  <strong>PMS Window</strong>
+                  <span>in 9 days</span>
+                </div>
+              </div>
+              <div class="forecast-card">
+                <span class="forecast-icon">🌕</span>
+                <div>
+                  <strong>Next Phase</strong>
+                  <span>Luteal in 3 days</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="preview-text">
+          <div class="section-badge">Cycle Tracking</div>
+          <h2>See Your Entire Cycle at a Glance</h2>
+          <p>GenFlo's visual cycle timeline maps all 28 days, predicts upcoming biological events and provides condition-specific modules for PCOS, PCOD and PMDD.</p>
+          <ul class="feature-list">
+            <li>Visual 28-day cycle timeline</li>
+            <li>PMS countdown & forecasting</li>
+            <li>PCOS / PMDD management modules</li>
+          </ul>
+          <a href="cycle.html" class="btn-outline">Explore Cycle Tracking →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SKIN SECTION PREVIEW
+  ══════════════════════════════════════ -->
+  <section class="preview-section tinted" id="skin">
+    <div class="container">
+      <div class="preview-split">
+        <div class="preview-text">
+          <div class="section-badge">Hormonal Skincare</div>
+          <h2>Your Hormones, Your Glow</h2>
+          <p>Discover how each cycle phase affects your skin and get adaptive routine recommendations powered by research-backed insights.</p>
+          <ul class="feature-list">
+            <li>Phase-based educational skin guide</li>
+            <li>Daily oiliness, hydration & breakout tracker</li>
+            <li>AI-curated skincare routines per phase</li>
+          </ul>
+          <a href="skin.html" class="btn-outline">Explore Skin →</a>
+        </div>
+        <div class="preview-visual">
+          <div class="skin-preview-card">
+            <div class="skin-phase-header">
+              <span class="skin-phase-badge ovulatory">🌕 Ovulatory Phase</span>
+              <small>Days 14–16</small>
+            </div>
+            <p class="skin-desc">Estrogen peaks — your skin is naturally luminous with improved barrier function and increased collagen production.</p>
+            <div class="skin-sliders">
+              <div class="slider-row">
+                <span>Oiliness</span>
+                <div class="slider-track"><div class="slider-fill" style="width:45%"></div></div>
+                <span>45%</span>
+              </div>
+              <div class="slider-row">
+                <span>Hydration</span>
+                <div class="slider-track"><div class="slider-fill" style="width:80%"></div></div>
+                <span>80%</span>
+              </div>
+              <div class="slider-row">
+                <span>Sensitivity</span>
+                <div class="slider-track"><div class="slider-fill" style="width:20%"></div></div>
+                <span>20%</span>
+              </div>
+            </div>
+            <div class="skin-routine">
+              <div class="routine-title">✨ Today's Routine</div>
+              <div class="routine-products">
+                <span class="product-chip">Vitamin C Serum</span>
+                <span class="product-chip">Gel Cleanser</span>
+                <span class="product-chip">SPF 50</span>
+                <span class="product-chip">Hyaluronic Acid</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       PARTNER SECTION PREVIEW
+  ══════════════════════════════════════ -->
+  <section class="preview-section" id="partner">
+    <div class="container">
+      <div class="preview-split reverse">
+        <div class="preview-visual">
+          <div class="partner-preview">
+            <div class="partner-card">
+              <div class="partner-header">
+                <span class="partner-avatar">J</span>
+                <div>
+                  <strong>Jamie's Schedule</strong>
+                  <small>This week</small>
+                </div>
+                <span class="partner-badge connected">● Connected</span>
+              </div>
+              <div class="partner-week">
+                <div class="week-day busy"><span>Mon</span><small>9am–6pm</small></div>
+                <div class="week-day busy"><span>Tue</span><small>9am–6pm</small></div>
+                <div class="week-day free"><span>Wed</span><small>Day Off ✓</small></div>
+                <div class="week-day busy"><span>Thu</span><small>Late shift</small></div>
+                <div class="week-day best"><span>Fri</span><small>⭐ Best Window</small></div>
+                <div class="week-day free"><span>Sat</span><small>Free</small></div>
+                <div class="week-day free"><span>Sun</span><small>Free</small></div>
+              </div>
+              <div class="partner-nudge">
+                <div class="nudge-msg"><span>💬</span> Jamie sent: "Miss you! 🥰"</div>
+                <div class="nudge-actions">
+                  <button class="nudge-btn">Miss you too 💕</button>
+                  <button class="nudge-btn secondary">Check in</button>
+                </div>
+              </div>
+            </div>
+            <div class="date-idea-card">
+              <div class="date-score">9.1<small>/10</small></div>
+              <div class="date-info">
+                <strong>Sunset Picnic at the Park</strong>
+                <div class="date-tags">
+                  <span>🌿 Outdoorsy</span>
+                  <span>💆 Low Pressure</span>
+                </div>
+                <p class="date-tip">💡 Jamie Tip: Let her lead the pace today — she's in high energy mode.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="preview-text">
+          <div class="section-badge">Partner Sync</div>
+          <h2>Love, Synced to Your Cycle</h2>
+          <p>Connect your partner's schedule, share phase insights and let Aria's AI suggest hormone-aware date ideas that work for both of you.</p>
+          <ul class="feature-list">
+            <li>Calendar sync (Google, Apple, Outlook)</li>
+            <li>Best Window date planner</li>
+            <li>Partner nudges & mood broadcasts</li>
+            <li>AI-generated date itineraries</li>
+            <li>Partner coaching tips per phase</li>
+          </ul>
+          <a href="partner.html" class="btn-outline">Explore Partner Sync →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       WELLNESS PREVIEW
+  ══════════════════════════════════════ -->
+  <section class="preview-section tinted" id="wellness">
+    <div class="container">
+      <div class="preview-split">
+        <div class="preview-text">
+          <div class="section-badge">Nutrition & Fitness</div>
+          <h2>Fuel and Move With Your Hormones</h2>
+          <p>Cycle-synced nutrition, daily supplement checklists and adaptive workouts that align with your body's natural hormonal rhythms.</p>
+          <ul class="feature-list">
+            <li>Phase-specific food & nutrient guides</li>
+            <li>AM/PM supplement tracker</li>
+            <li>HIIT vs rest workout recommendations</li>
+          </ul>
+          <a href="wellness.html" class="btn-outline">Explore Wellness →</a>
+        </div>
+        <div class="preview-visual">
+          <div class="wellness-preview">
+            <div class="wellness-card">
+              <div class="wellness-icon">🥗</div>
+              <div>
+                <strong>Today's Focus</strong>
+                <p>Zinc-rich foods & antioxidants</p>
+              </div>
+            </div>
+            <div class="wellness-card">
+              <div class="wellness-icon">⚡</div>
+              <div>
+                <strong>Workout</strong>
+                <p>HIIT — You have peak energy!</p>
+              </div>
+            </div>
+            <div class="supplement-checklist">
+              <div class="supp-title">💊 Supplements — AM</div>
+              <label class="supp-item"><input type="checkbox" checked /> Vitamin D3</label>
+              <label class="supp-item"><input type="checkbox" checked /> Omega-3</label>
+              <label class="supp-item"><input type="checkbox" /> Magnesium Glycinate</label>
+              <label class="supp-item"><input type="checkbox" /> Zinc</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FOOTER CTA
+  ══════════════════════════════════════ -->
+  <section class="footer-cta">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Begin Your Journey?</h2>
+        <p>Join GenFlo and let Aria guide you through every phase.</p>
+        <a href="onboarding.html" class="btn-primary btn-lg">Start for Free →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo"><span class="logo-mark">⬡</span>GenFlo</div>
+          <p>Your intelligent cycle wellness companion.</p>
+        </div>
+        <div class="footer-links">
+          <strong>Product</strong>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="cycle.html">Cycle</a>
+          <a href="skin.html">Skin</a>
+          <a href="wellness.html">Wellness</a>
+          <a href="partner.html">Partner</a>
+          <a href="aria.html">Aria AI</a>
+        </div>
+        <div class="footer-links">
+          <strong>Account</strong>
+          <a href="onboarding.html">Get Started</a>
+          <a href="login.html">Sign In</a>
+        </div>
+        <div class="footer-links">
+          <strong>Legal</strong>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 GenFlo. Made with 💚 for every cycle.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
