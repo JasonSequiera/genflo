@@ -34,7 +34,7 @@
 
 /* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scrollbar-gutter: stable; }
 body {
   font-family: var(--font-body);
   background: var(--cream);
@@ -223,20 +223,36 @@ p { font-size: 1rem; color: var(--text-muted); }
   display: flex; align-items: center; gap: 6px;
   padding: 8px 16px;
   font-size: 0.88rem;
-  font-weight: 450;
+  font-weight: 400;
   color: var(--text-muted);
-  border-radius: 10px;
+  border-radius: 0;
   transition: var(--transition);
   white-space: nowrap;
+  position: relative;
+}
+.gf-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 2px; left: 16px; right: 16px;
+  height: 1px;
+  background: var(--sage-dark);
+  transform: scaleX(0);
+  transition: var(--transition);
 }
 .gf-nav-link:hover {
   color: var(--charcoal);
-  background: rgba(143,172,141,0.08);
+  background: none;
+}
+.gf-nav-link:hover::after {
+  transform: scaleX(1);
 }
 .gf-nav-link.active {
   color: var(--sage-dark);
-  background: rgba(143,172,141,0.14);
-  font-weight: 550;
+  background: none;
+  font-weight: 500;
+}
+.gf-nav-link.active::after {
+  transform: scaleX(1);
 }
 .gf-nav-icon {
   font-size: 0.95rem;
@@ -443,11 +459,31 @@ p { font-size: 1rem; color: var(--text-muted); }
   background: rgba(201,124,93,0.08);
 }
 
+/* ── Guest Nav Actions (Sign In / Begin Journey) ── */
+.gf-nav-actions {
+  display: flex; align-items: center; gap: 10px;
+}
+.gf-btn-sm {
+  padding: 9px 20px !important;
+  font-size: 0.88rem !important;
+}
+.gf-mobile-cta {
+  background: linear-gradient(135deg, var(--sage-dark), var(--sage));
+  color: var(--white) !important;
+  border-radius: 100px;
+  font-weight: 500;
+}
+.gf-mobile-cta:hover {
+  opacity: 0.9;
+  background: linear-gradient(135deg, var(--sage-dark), var(--sage)) !important;
+}
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .gf-nav-links { display: none; }
   .gf-profile-name { display: none; }
   .gf-burger { display: flex; }
+  .gf-nav-actions { display: none; }
 }
 @media (max-width: 600px) {
   .gf-navbar-inner { padding: 0 16px; height: 56px; }

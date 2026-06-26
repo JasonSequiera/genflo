@@ -34,57 +34,6 @@
 </head>
 <body>
 
-    <nav id="main-nav" class="gf-navbar">
-    <div class="gf-navbar-inner">
-      <a href="dashboard.html" class="gf-navbar-logo">
-        <span class="gf-logo-mark">⬡</span>GenFlo
-      </a>
-      <ul class="gf-nav-links">
-        <li><a href="dashboard.html" class="gf-nav-link" id="nav-home"><span class="gf-nav-icon">🏠</span>Home</a></li>
-        <li><a href="cycle.html" class="gf-nav-link" id="nav-cycle"><span class="gf-nav-icon">🌙</span>Cycle</a></li>
-        <li><a href="skin.html" class="gf-nav-link" id="nav-skin"><span class="gf-nav-icon">✨</span>Skin</a></li>
-        <li><a href="wellness.html" class="gf-nav-link" id="nav-wellness" class="gf-nav-link active"><span class="gf-nav-icon">🥗</span>Wellness</a></li>
-        <li><a href="partner.html" class="gf-nav-link" id="nav-partner"><span class="gf-nav-icon">💑</span>Partner</a></li>
-        <li><a href="aria.html" class="gf-nav-link" id="nav-aria"><span class="gf-nav-icon">🤖</span>Aria</a></li>
-      </ul>
-      <div class="gf-nav-right">
-        <div class="gf-profile-menu" id="gf-profile-menu">
-          <button class="gf-profile-trigger" id="gf-profile-trigger" aria-label="Profile menu">
-            <div class="gf-avatar" id="nav-avatar-sm">U</div>
-            <span class="gf-profile-name" id="nav-user-name">User</span>
-            <svg class="gf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="gf-profile-dropdown" id="gf-profile-dropdown">
-            <div class="gf-dropdown-header">
-              <div class="gf-avatar gf-avatar-lg" id="nav-avatar-lg">U</div>
-              <div>
-                <div class="gf-dropdown-name" id="nav-user-name-dropdown">User</div>
-                <div class="gf-dropdown-role">GenFlo Member</div>
-              </div>
-            </div>
-            <div class="gf-dropdown-divider"></div>
-            <a href="dashboard.html" class="gf-dropdown-item"><span>🏠</span> Dashboard</a>
-            <a href="onboarding.html" class="gf-dropdown-item"><span>⚙️</span> Settings</a>
-            <div class="gf-dropdown-divider"></div>
-            <button class="gf-dropdown-item gf-signout-btn" id="gf-signout-btn"><span>🚪</span> Sign Out</button>
-          </div>
-        </div>
-      </div>
-      <button class="gf-burger" id="gf-burger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="gf-mobile-menu" id="gf-mobile-menu">
-      <a href="dashboard.html" class="gf-mobile-link" id="mob-home"><span class="gf-nav-icon">🏠</span>Home</a>
-      <a href="cycle.html" class="gf-mobile-link" id="mob-cycle"><span class="gf-nav-icon">🌙</span>Cycle</a>
-      <a href="skin.html" class="gf-mobile-link" id="mob-skin"><span class="gf-nav-icon">✨</span>Skin</a>
-      <a href="wellness.html" class="gf-mobile-link" id="mob-wellness"><span class="gf-nav-icon">🥗</span>Wellness</a>
-      <a href="partner.html" class="gf-mobile-link" id="mob-partner"><span class="gf-nav-icon">💑</span>Partner</a>
-      <a href="aria.html" class="gf-mobile-link" id="mob-aria"><span class="gf-nav-icon">🤖</span>Aria</a>
-      <div class="gf-mobile-divider"></div>
-      <button class="gf-mobile-signout" id="gf-mobile-signout">🚪 Sign Out</button>
-    </div>
-  </nav>
 
   <section class="page-hero">
     <div class="container">
@@ -188,7 +137,7 @@
               </div>
             </div>
             <div style="margin-top:16px;display:flex;gap:12px;">
-              <button class="btn-primary" onclick="alert('Supplements logged! ✓')">Save Progress</button>
+              <button class="btn-primary" onclick="toast.success('Supplements logged! ✓')">Save Progress</button>
               <a href="aria.html" class="btn-outline">Ask Aria about supplements →</a>
             </div>
           </div>

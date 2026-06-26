@@ -1,111 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Partner Sync — GenFlo</title>
-  <meta name="description" content="Connect your partner, sync schedules, share cycle insights and plan hormone-aware AI date nights with GenFlo." />
+  <meta name="description"
+    content="Connect your partner, sync schedules, share cycle insights and plan hormone-aware AI date nights with GenFlo." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <script src="js/api.js"></script>
   <script src="js/navbar.js"></script>
   <style>
-    .partner-tabs { display: flex; border-bottom: 1px solid var(--card-border); margin-bottom: 24px; }
-    .ptab2 { padding: 12px 20px; font-size: 0.88rem; font-weight: 500; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; transition: var(--transition); font-family: var(--font-body); background: none; border-top: none; border-left: none; border-right: none; white-space: nowrap; }
-    .ptab2.active, .ptab2:hover { color: var(--sage-dark); border-bottom-color: var(--sage-dark); }
-    .partner-content { display: none; }
-    .partner-content.active { display: block; }
-    .avail-matrix { display: grid; grid-template-columns: auto repeat(7, 1fr); gap: 4px; font-size: 0.78rem; }
-    .matrix-header { text-align: center; font-weight: 600; color: var(--text-muted); padding: 8px 4px; }
-    .matrix-cell { text-align: center; padding: 8px 4px; border-radius: 6px; }
-    .matrix-label { font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; }
-    .matrix-cell.sofia-busy { background: rgba(94,122,92,0.15); }
-    .matrix-cell.jamie-busy { background: rgba(201,124,93,0.15); }
-    .matrix-cell.both-busy { background: rgba(150,100,80,0.2); }
-    .matrix-cell.both-free { background: rgba(143,172,141,0.3); border: 1px solid var(--sage); font-weight: 600; color: var(--sage-dark); }
-    .matrix-cell.best-window { background: linear-gradient(135deg, rgba(94,122,92,0.3), rgba(143,172,141,0.2)); border: 2px solid var(--sage-dark); font-weight: 700; color: var(--sage-dark); }
-    .legend-row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
-    .legend-item2 { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--text-muted); }
-    .legend-box { width: 16px; height: 16px; border-radius: 4px; }
-    .date-card-full { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--radius-lg); padding: 24px; backdrop-filter: blur(8px); margin-bottom: 16px; transition: var(--transition); }
-    .date-card-full:hover { border-color: var(--sage); box-shadow: var(--shadow-card); }
-    .date-score-big { font-family: var(--font-display); font-size: 2.8rem; font-weight: 500; color: var(--sage-dark); }
-    .date-tags-full { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; }
-    .date-tags-full span { font-size: 0.78rem; background: rgba(143,172,141,0.1); border: 1px solid var(--card-border); padding: 4px 12px; border-radius: 100px; }
-    .date-actions { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
-    .mood-option { padding: 14px; border: 2px solid var(--card-border); border-radius: var(--radius-md); text-align: center; cursor: pointer; transition: var(--transition); background: var(--white); font-family: var(--font-body); }
-    .mood-option:hover, .mood-option.selected { border-color: var(--sage); background: rgba(143,172,141,0.08); }
-    .mood-option .mood-icon { font-size: 2rem; display: block; margin-bottom: 4px; }
-    .mood-option small { font-size: 0.75rem; color: var(--text-muted); }
-    .privacy-toggle { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--card-border); }
-    .privacy-toggle:last-child { border-bottom: none; }
-    .toggle-info strong { display: block; font-size: 0.88rem; color: var(--charcoal); }
-    .toggle-info small { font-size: 0.78rem; color: var(--text-muted); }
-    .toggle-switch { position: relative; width: 44px; height: 24px; }
-    .toggle-switch input { opacity: 0; width: 0; height: 0; }
-    .toggle-slider { position: absolute; cursor: pointer; inset: 0; background: var(--card-border); border-radius: 24px; transition: var(--transition); }
-    .toggle-slider::before { content: ''; position: absolute; height: 18px; width: 18px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: var(--transition); box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
-    input:checked + .toggle-slider { background: var(--sage-dark); }
-    input:checked + .toggle-slider::before { transform: translateX(20px); }
-    .cal-option { border: 1.5px solid var(--card-border); border-radius: var(--radius-md); padding: 16px 20px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: var(--transition); background: var(--white); margin-bottom: 10px; font-family: var(--font-body); width: 100%; text-align: left; }
-    .cal-option:hover { border-color: var(--sage); background: rgba(143,172,141,0.04); }
+    .partner-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 24px;
+    }
+
+    .ptab2 {
+      padding: 12px 20px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: var(--transition);
+      font-family: var(--font-body);
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      white-space: nowrap;
+    }
+
+    .ptab2.active,
+    .ptab2:hover {
+      color: var(--sage-dark);
+      border-bottom-color: var(--sage-dark);
+    }
+
+    .partner-content {
+      display: none;
+    }
+
+    .partner-content.active {
+      display: block;
+    }
+
+    .avail-matrix {
+      display: grid;
+      grid-template-columns: auto repeat(7, 1fr);
+      gap: 4px;
+      font-size: 0.78rem;
+    }
+
+    .matrix-header {
+      text-align: center;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 8px 4px;
+    }
+
+    .matrix-cell {
+      text-align: center;
+      padding: 8px 4px;
+      border-radius: 6px;
+    }
+
+    .matrix-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+    }
+
+    .matrix-cell.sofia-busy {
+      background: rgba(94, 122, 92, 0.15);
+    }
+
+    .matrix-cell.jamie-busy {
+      background: rgba(201, 124, 93, 0.15);
+    }
+
+    .matrix-cell.both-busy {
+      background: rgba(150, 100, 80, 0.2);
+    }
+
+    .matrix-cell.both-free {
+      background: rgba(143, 172, 141, 0.3);
+      border: 1px solid var(--sage);
+      font-weight: 600;
+      color: var(--sage-dark);
+    }
+
+    .matrix-cell.best-window {
+      background: linear-gradient(135deg, rgba(94, 122, 92, 0.3), rgba(143, 172, 141, 0.2));
+      border: 2px solid var(--sage-dark);
+      font-weight: 700;
+      color: var(--sage-dark);
+    }
+
+    .legend-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .legend-item2 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .legend-box {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+    }
+
+    .date-card-full {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      backdrop-filter: blur(8px);
+      margin-bottom: 16px;
+      transition: var(--transition);
+    }
+
+    .date-card-full:hover {
+      border-color: var(--sage);
+      box-shadow: var(--shadow-card);
+    }
+
+    .date-score-big {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 500;
+      color: var(--sage-dark);
+    }
+
+    .date-tags-full {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 10px 0;
+    }
+
+    .date-tags-full span {
+      font-size: 0.78rem;
+      background: rgba(143, 172, 141, 0.1);
+      border: 1px solid var(--card-border);
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    .date-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .mood-option {
+      padding: 14px;
+      border: 2px solid var(--card-border);
+      border-radius: var(--radius-md);
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--white);
+      font-family: var(--font-body);
+    }
+
+    .mood-option:hover,
+    .mood-option.selected {
+      border-color: var(--sage);
+      background: rgba(143, 172, 141, 0.08);
+    }
+
+    .mood-option .mood-icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .mood-option small {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .privacy-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .privacy-toggle:last-child {
+      border-bottom: none;
+    }
+
+    .toggle-info strong {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--charcoal);
+    }
+
+    .toggle-info small {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background: var(--card-border);
+      border-radius: 24px;
+      transition: var(--transition);
+    }
+
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: var(--transition);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    input:checked+.toggle-slider {
+      background: var(--sage-dark);
+    }
+
+    input:checked+.toggle-slider::before {
+      transform: translateX(20px);
+    }
+
+    .cal-option {
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--white);
+      margin-bottom: 10px;
+      font-family: var(--font-body);
+      width: 100%;
+      text-align: left;
+    }
+
+    .cal-option:hover {
+      border-color: var(--sage);
+      background: rgba(143, 172, 141, 0.04);
+    }
   </style>
 </head>
+
 <body>
 
-    <nav id="main-nav" class="gf-navbar">
-    <div class="gf-navbar-inner">
-      <a href="dashboard.html" class="gf-navbar-logo">
-        <span class="gf-logo-mark">⬡</span>GenFlo
-      </a>
-      <ul class="gf-nav-links">
-        <li><a href="dashboard.html" class="gf-nav-link" id="nav-home"><span class="gf-nav-icon">🏠</span>Home</a></li>
-        <li><a href="cycle.html" class="gf-nav-link" id="nav-cycle"><span class="gf-nav-icon">🌙</span>Cycle</a></li>
-        <li><a href="skin.html" class="gf-nav-link" id="nav-skin"><span class="gf-nav-icon">✨</span>Skin</a></li>
-        <li><a href="wellness.html" class="gf-nav-link" id="nav-wellness"><span class="gf-nav-icon">🥗</span>Wellness</a></li>
-        <li><a href="partner.html" class="gf-nav-link" id="nav-partner" class="gf-nav-link active"><span class="gf-nav-icon">💑</span>Partner</a></li>
-        <li><a href="aria.html" class="gf-nav-link" id="nav-aria"><span class="gf-nav-icon">🤖</span>Aria</a></li>
-      </ul>
-      <div class="gf-nav-right">
-        <div class="gf-profile-menu" id="gf-profile-menu">
-          <button class="gf-profile-trigger" id="gf-profile-trigger" aria-label="Profile menu">
-            <div class="gf-avatar" id="nav-avatar-sm">U</div>
-            <span class="gf-profile-name" id="nav-user-name">User</span>
-            <svg class="gf-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="gf-profile-dropdown" id="gf-profile-dropdown">
-            <div class="gf-dropdown-header">
-              <div class="gf-avatar gf-avatar-lg" id="nav-avatar-lg">U</div>
-              <div>
-                <div class="gf-dropdown-name" id="nav-user-name-dropdown">User</div>
-                <div class="gf-dropdown-role">GenFlo Member</div>
-              </div>
-            </div>
-            <div class="gf-dropdown-divider"></div>
-            <a href="dashboard.html" class="gf-dropdown-item"><span>🏠</span> Dashboard</a>
-            <a href="onboarding.html" class="gf-dropdown-item"><span>⚙️</span> Settings</a>
-            <div class="gf-dropdown-divider"></div>
-            <button class="gf-dropdown-item gf-signout-btn" id="gf-signout-btn"><span>🚪</span> Sign Out</button>
-          </div>
-        </div>
-      </div>
-      <button class="gf-burger" id="gf-burger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="gf-mobile-menu" id="gf-mobile-menu">
-      <a href="dashboard.html" class="gf-mobile-link" id="mob-home"><span class="gf-nav-icon">🏠</span>Home</a>
-      <a href="cycle.html" class="gf-mobile-link" id="mob-cycle"><span class="gf-nav-icon">🌙</span>Cycle</a>
-      <a href="skin.html" class="gf-mobile-link" id="mob-skin"><span class="gf-nav-icon">✨</span>Skin</a>
-      <a href="wellness.html" class="gf-mobile-link" id="mob-wellness"><span class="gf-nav-icon">🥗</span>Wellness</a>
-      <a href="partner.html" class="gf-mobile-link" id="mob-partner"><span class="gf-nav-icon">💑</span>Partner</a>
-      <a href="aria.html" class="gf-mobile-link" id="mob-aria"><span class="gf-nav-icon">🤖</span>Aria</a>
-      <div class="gf-mobile-divider"></div>
-      <button class="gf-mobile-signout" id="gf-mobile-signout">🚪 Sign Out</button>
-    </div>
-  </nav>
 
   <section class="page-hero">
     <div class="container">
@@ -122,15 +304,23 @@
       <div class="dashboard-card" style="margin-bottom:24px;">
         <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
           <div style="display:flex;align-items:center;gap:14px;">
-            <div id="partner-avatar" style="width:56px;height:56px;background:linear-gradient(135deg,var(--terracotta),var(--terracotta-light));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:600;color:white;">?</div>
+            <div id="partner-avatar"
+              style="width:56px;height:56px;background:linear-gradient(135deg,var(--terracotta),var(--terracotta-light));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:600;color:white;">
+              ?</div>
             <div>
-              <div id="partner-name-display" style="font-family:var(--font-display);font-size:1.3rem;color:var(--charcoal);">Loading...</div>
-              <div id="partner-status" style="font-size:0.78rem;color:var(--text-muted);font-weight:500;">Checking connection...</div>
+              <div id="partner-name-display"
+                style="font-family:var(--font-display);font-size:1.3rem;color:var(--charcoal);">Loading...</div>
+              <div id="partner-status" style="font-size:0.78rem;color:var(--text-muted);font-weight:500;">Checking
+                connection...</div>
             </div>
           </div>
           <div id="partner-actions" style="margin-left:auto;display:none;gap:10px;flex-wrap:wrap;">
-            <button type="button" class="btn-ghost" onclick="switchTab('nudge',document.querySelector('[data-tab=nudge]'))" style="padding:10px 18px;font-size:0.85rem;">💬 Send Nudge</button>
-            <button type="button" class="btn-primary" onclick="switchTab('date-ideas',document.querySelector('[data-tab=date-ideas]'))" style="padding:10px 18px;font-size:0.85rem;">⭐ Plan a Date</button>
+            <button type="button" class="btn-ghost"
+              onclick="switchTab('nudge',document.querySelector('[data-tab=nudge]'))"
+              style="padding:10px 18px;font-size:0.85rem;">💬 Send Nudge</button>
+            <button type="button" class="btn-primary"
+              onclick="switchTab('date-ideas',document.querySelector('[data-tab=date-ideas]'))"
+              style="padding:10px 18px;font-size:0.85rem;">⭐ Plan a Date</button>
           </div>
           <div id="no-partner-cta" style="margin-left:auto;display:none;">
             <a href="onboarding.html" class="btn-primary" style="font-size:0.85rem;">Connect a Partner →</a>
@@ -152,26 +342,32 @@
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
           <div class="dashboard-card">
             <h3>What <span class="partner-name-span">your partner</span> sees</h3>
-            <div style="background:rgba(143,172,141,0.06);border:1px solid var(--card-border);border-radius:var(--radius-md);padding:20px;margin-bottom:16px;">
-              <p id="overview-phase-text" style="font-size:0.9rem;line-height:1.8;color:var(--charcoal);">Loading cycle data...</p>
+            <div
+              style="background:rgba(143,172,141,0.06);border:1px solid var(--card-border);border-radius:var(--radius-md);padding:20px;margin-bottom:16px;">
+              <p id="overview-phase-text" style="font-size:0.9rem;line-height:1.8;color:var(--charcoal);">Loading cycle
+                data...</p>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-              <div style="background:rgba(94,122,92,0.08);border:1px solid rgba(94,122,92,0.15);border-radius:var(--radius-sm);padding:12px;text-align:center;">
+              <div
+                style="background:rgba(94,122,92,0.08);border:1px solid rgba(94,122,92,0.15);border-radius:var(--radius-sm);padding:12px;text-align:center;">
                 <div style="font-size:1.3rem;margin-bottom:4px;">⚡</div>
                 <div style="font-size:0.8rem;font-weight:500;color:var(--charcoal);">Energy</div>
                 <div id="ov-energy" style="font-size:0.75rem;color:var(--sage-dark);">—</div>
               </div>
-              <div style="background:rgba(94,122,92,0.08);border:1px solid rgba(94,122,92,0.15);border-radius:var(--radius-sm);padding:12px;text-align:center;">
+              <div
+                style="background:rgba(94,122,92,0.08);border:1px solid rgba(94,122,92,0.15);border-radius:var(--radius-sm);padding:12px;text-align:center;">
                 <div style="font-size:1.3rem;margin-bottom:4px;">😊</div>
                 <div style="font-size:0.8rem;font-weight:500;color:var(--charcoal);">Mood</div>
                 <div id="ov-mood" style="font-size:0.75rem;color:var(--sage-dark);">—</div>
               </div>
-              <div style="background:rgba(94,122,92,0.08);border:1px solid rgba(94,122,92,0.15);border-radius:var(--radius-sm);padding:12px;text-align:center;">
+              <div
+                style="background:rgba(94,122,92,0.08);border:1px solid rgba(94,122,92,0.15);border-radius:var(--radius-sm);padding:12px;text-align:center;">
                 <div style="font-size:1.3rem;margin-bottom:4px;">🌹</div>
                 <div style="font-size:0.8rem;font-weight:500;color:var(--charcoal);">Connection</div>
                 <div style="font-size:0.75rem;color:var(--sage-dark);">Peak</div>
               </div>
-              <div style="background:rgba(94,122,92,0.08);border:1px solid rgba(94,122,92,0.15);border-radius:var(--radius-sm);padding:12px;text-align:center;">
+              <div
+                style="background:rgba(94,122,92,0.08);border:1px solid rgba(94,122,92,0.15);border-radius:var(--radius-sm);padding:12px;text-align:center;">
                 <div style="font-size:1.3rem;margin-bottom:4px;">📅</div>
                 <div style="font-size:0.8rem;font-weight:500;color:var(--charcoal);">Best Date</div>
                 <div style="font-size:0.75rem;color:var(--sage-dark);">This Fri</div>
@@ -182,21 +378,31 @@
           <div class="dashboard-card">
             <h3>Future Phase Forecast</h3>
             <div style="display:flex;flex-direction:column;gap:10px;">
-              <div style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(94,122,92,0.1);border:1px solid var(--sage);border-radius:var(--radius-sm);">
+              <div
+                style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(94,122,92,0.1);border:1px solid var(--sage);border-radius:var(--radius-sm);">
                 <span style="font-size:1.5rem;">🌕</span>
-                <div><strong style="font-size:0.88rem;color:var(--sage-dark);">NOW: Ovulatory (Peak)</strong><br/><small style="color:var(--text-muted);">Social, energetic, glowing — plan date now!</small></div>
+                <div><strong style="font-size:0.88rem;color:var(--sage-dark);">NOW: Ovulatory
+                    (Peak)</strong><br /><small style="color:var(--text-muted);">Social, energetic, glowing — plan date
+                    now!</small></div>
               </div>
-              <div style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(212,184,150,0.1);border:1px solid rgba(212,184,150,0.3);border-radius:var(--radius-sm);">
+              <div
+                style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(212,184,150,0.1);border:1px solid rgba(212,184,150,0.3);border-radius:var(--radius-sm);">
                 <span style="font-size:1.5rem;">🌘</span>
-                <div><strong style="font-size:0.88rem;color:#8a6a40;">In 3 days: Luteal</strong><br/><small style="color:var(--text-muted);">Cosy nights in, gentle activities. Be extra sweet.</small></div>
+                <div><strong style="font-size:0.88rem;color:#8a6a40;">In 3 days: Luteal</strong><br /><small
+                    style="color:var(--text-muted);">Cosy nights in, gentle activities. Be extra sweet.</small></div>
               </div>
-              <div style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(201,124,93,0.1);border:1px solid rgba(201,124,93,0.2);border-radius:var(--radius-sm);">
+              <div
+                style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(201,124,93,0.1);border:1px solid rgba(201,124,93,0.2);border-radius:var(--radius-sm);">
                 <span style="font-size:1.5rem;">⚠️</span>
-                <div><strong style="font-size:0.88rem;color:var(--terracotta);">In 9 days: PMS Window</strong><br/><small style="color:var(--text-muted);">Extra care & patience. Avoid pressure activities.</small></div>
+                <div><strong style="font-size:0.88rem;color:var(--terracotta);">In 9 days: PMS
+                    Window</strong><br /><small style="color:var(--text-muted);">Extra care & patience. Avoid pressure
+                    activities.</small></div>
               </div>
-              <div style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(201,124,93,0.06);border:1px solid rgba(201,124,93,0.15);border-radius:var(--radius-sm);">
+              <div
+                style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(201,124,93,0.06);border:1px solid rgba(201,124,93,0.15);border-radius:var(--radius-sm);">
                 <span style="font-size:1.5rem;">🌑</span>
-                <div><strong style="font-size:0.88rem;color:var(--terracotta);">In 14 days: Period</strong><br/><small style="color:var(--text-muted);">Rest days. Comfort food & Netflix. 🌿</small></div>
+                <div><strong style="font-size:0.88rem;color:var(--terracotta);">In 14 days: Period</strong><br /><small
+                    style="color:var(--text-muted);">Rest days. Comfort food & Netflix. 🌿</small></div>
               </div>
             </div>
           </div>
@@ -208,14 +414,21 @@
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
           <div class="dashboard-card">
             <h3>Share Your Mood</h3>
-            <p id="nudge-partner-label" style="font-size:0.88rem;margin-bottom:20px;">Let your partner know how you're feeling right now.</p>
+            <p id="nudge-partner-label" style="font-size:0.88rem;margin-bottom:20px;">Let your partner know how you're
+              feeling right now.</p>
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">
-              <button type="button" class="mood-option" onclick="selectMood(this)"><span class="mood-icon">⚡</span><small>Peak Energy</small></button>
-              <button type="button" class="mood-option" onclick="selectMood(this)"><span class="mood-icon">😊</span><small>Happy</small></button>
-              <button type="button" class="mood-option" onclick="selectMood(this)"><span class="mood-icon">😌</span><small>Calm</small></button>
-              <button type="button" class="mood-option" onclick="selectMood(this)"><span class="mood-icon">🥰</span><small>Motivated</small></button>
-              <button type="button" class="mood-option" onclick="selectMood(this)"><span class="mood-icon">😔</span><small>Low</small></button>
-              <button type="button" class="mood-option" onclick="selectMood(this)"><span class="mood-icon">😤</span><small>Stressed</small></button>
+              <button type="button" class="mood-option" onclick="selectMood(this)"><span
+                  class="mood-icon">⚡</span><small>Peak Energy</small></button>
+              <button type="button" class="mood-option" onclick="selectMood(this)"><span
+                  class="mood-icon">😊</span><small>Happy</small></button>
+              <button type="button" class="mood-option" onclick="selectMood(this)"><span
+                  class="mood-icon">😌</span><small>Calm</small></button>
+              <button type="button" class="mood-option" onclick="selectMood(this)"><span
+                  class="mood-icon">🥰</span><small>Motivated</small></button>
+              <button type="button" class="mood-option" onclick="selectMood(this)"><span
+                  class="mood-icon">😔</span><small>Low</small></button>
+              <button type="button" class="mood-option" onclick="selectMood(this)"><span
+                  class="mood-icon">😤</span><small>Stressed</small></button>
             </div>
             <button type="button" class="btn-primary" onclick="shareMood()">Share with Partner</button>
           </div>
@@ -224,19 +437,27 @@
             <h3>Custom Nudge Generator</h3>
             <p style="font-size:0.88rem;margin-bottom:16px;">Quick starting points or write your own:</p>
             <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
-              <button class="nudge-btn" style="text-align:left;padding:12px 16px;border-radius:var(--radius-sm);" onclick="fillNudge(this)">Miss your face 😊</button>
-              <button class="nudge-btn" style="text-align:left;padding:12px 16px;border-radius:var(--radius-sm);" onclick="fillNudge(this)">Can't stop thinking about you 💭</button>
-              <button class="nudge-btn" style="text-align:left;padding:12px 16px;border-radius:var(--radius-sm);" onclick="fillNudge(this)">How's your day going? 🌿</button>
-              <button class="nudge-btn" style="text-align:left;padding:12px 16px;border-radius:var(--radius-sm);" onclick="fillNudge(this)">Thinking of us this Friday ⭐</button>
+              <button class="nudge-btn" style="text-align:left;padding:12px 16px;border-radius:var(--radius-sm);"
+                onclick="fillNudge(this)">Miss your face 😊</button>
+              <button class="nudge-btn" style="text-align:left;padding:12px 16px;border-radius:var(--radius-sm);"
+                onclick="fillNudge(this)">Can't stop thinking about you 💭</button>
+              <button class="nudge-btn" style="text-align:left;padding:12px 16px;border-radius:var(--radius-sm);"
+                onclick="fillNudge(this)">How's your day going? 🌿</button>
+              <button class="nudge-btn" style="text-align:left;padding:12px 16px;border-radius:var(--radius-sm);"
+                onclick="fillNudge(this)">Thinking of us this Friday ⭐</button>
             </div>
-            <textarea id="nudge-text" style="width:100%;height:80px;border:1.5px solid var(--card-border);border-radius:var(--radius-sm);padding:12px;font-family:var(--font-body);font-size:0.9rem;color:var(--charcoal);resize:none;outline:none;" placeholder="Write your own message..."></textarea>
-            <button type="button" class="btn-primary" style="margin-top:12px;width:100%;justify-content:center;" onclick="sendNudge()">Send Nudge 💬</button>
+            <textarea id="nudge-text"
+              style="width:100%;height:80px;border:1.5px solid var(--card-border);border-radius:var(--radius-sm);padding:12px;font-family:var(--font-body);font-size:0.9rem;color:var(--charcoal);resize:none;outline:none;"
+              placeholder="Write your own message..."></textarea>
+            <button type="button" class="btn-primary" style="margin-top:12px;width:100%;justify-content:center;"
+              onclick="sendNudge()">Send Nudge 💬</button>
           </div>
 
           <div class="dashboard-card" style="grid-column:span 2;">
             <h3>Recent Nudges</h3>
             <div id="nudge-history-partner">
-              <div style="font-size:0.85rem;color:var(--text-muted);text-align:center;padding:16px;">No nudges yet.</div>
+              <div style="font-size:0.85rem;color:var(--text-muted);text-align:center;padding:16px;">No nudges yet.
+              </div>
             </div>
           </div>
         </div>
@@ -248,21 +469,36 @@
           <div style="display:flex;flex-direction:column;gap:20px;">
             <div class="dashboard-card">
               <h3>Calendar Sync</h3>
-              <p style="font-size:0.88rem;margin-bottom:20px;">Connect Jamie's calendar to automatically detect free/busy times. Only "free/busy" status is shared — no event details.</p>
+              <p style="font-size:0.88rem;margin-bottom:20px;">Connect Jamie's calendar to automatically detect
+                free/busy times. Only "free/busy" status is shared — no event details.</p>
               <button class="cal-option" onclick="alert('Connecting Google Calendar...')">
-                <svg width="28" height="28" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-                <div><strong style="font-size:0.9rem;color:var(--charcoal);">Google Calendar</strong><small style="font-size:0.78rem;color:var(--text-muted);">Connect Jamie's Google Calendar</small></div>
+                <svg width="28" height="28" viewBox="0 0 24 24">
+                  <path fill="#4285F4"
+                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                  <path fill="#34A853"
+                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                  <path fill="#FBBC05"
+                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                  <path fill="#EA4335"
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                </svg>
+                <div><strong style="font-size:0.9rem;color:var(--charcoal);">Google Calendar</strong><small
+                    style="font-size:0.78rem;color:var(--text-muted);">Connect Jamie's Google Calendar</small></div>
               </button>
               <button class="cal-option" onclick="alert('Connecting Apple Calendar...')">
                 <span style="font-size:1.8rem;">🍎</span>
-                <div><strong style="font-size:0.9rem;color:var(--charcoal);">Apple Calendar</strong><small style="font-size:0.78rem;color:var(--text-muted);">Connect via iCloud</small></div>
+                <div><strong style="font-size:0.9rem;color:var(--charcoal);">Apple Calendar</strong><small
+                    style="font-size:0.78rem;color:var(--text-muted);">Connect via iCloud</small></div>
               </button>
               <button class="cal-option" onclick="alert('Connecting Outlook...')">
                 <span style="font-size:1.8rem;">📧</span>
-                <div><strong style="font-size:0.9rem;color:var(--charcoal);">Outlook</strong><small style="font-size:0.78rem;color:var(--text-muted);">Connect Microsoft Outlook</small></div>
+                <div><strong style="font-size:0.9rem;color:var(--charcoal);">Outlook</strong><small
+                    style="font-size:0.78rem;color:var(--text-muted);">Connect Microsoft Outlook</small></div>
               </button>
-              <div style="margin-top:16px;padding:14px;background:rgba(143,172,141,0.06);border:1px solid var(--card-border);border-radius:var(--radius-sm);">
-                <p style="font-size:0.8rem;color:var(--text-muted);">🔒 <strong>Privacy First:</strong> Only free/busy availability is shared. No event titles, descriptions, or details are ever visible.</p>
+              <div
+                style="margin-top:16px;padding:14px;background:rgba(143,172,141,0.06);border:1px solid var(--card-border);border-radius:var(--radius-sm);">
+                <p style="font-size:0.8rem;color:var(--text-muted);">🔒 <strong>Privacy First:</strong> Only free/busy
+                  availability is shared. No event titles, descriptions, or details are ever visible.</p>
               </div>
             </div>
 
@@ -270,16 +506,38 @@
             <div class="dashboard-card">
               <h3>Availability Matrix — This Week</h3>
               <div class="legend-row" style="margin-bottom:16px;">
-                <div class="legend-item2"><div class="legend-box" style="background:rgba(94,122,92,0.15);border:1px solid rgba(94,122,92,0.3);"></div><span id="legend-user">You</span> busy</div>
-                <div class="legend-item2"><div class="legend-box" style="background:rgba(201,124,93,0.15);border:1px solid rgba(201,124,93,0.3);"></div><span class="partner-name-span">Partner</span> busy</div>
-                <div class="legend-item2"><div class="legend-box" style="background:rgba(150,100,80,0.2);border:1px solid rgba(150,100,80,0.3);"></div>Both busy</div>
-                <div class="legend-item2"><div class="legend-box" style="background:rgba(143,172,141,0.3);border:1px solid var(--sage);"></div>Both free</div>
-                <div class="legend-item2"><div class="legend-box" style="background:linear-gradient(135deg,rgba(94,122,92,0.3),rgba(143,172,141,0.2));border:2px solid var(--sage-dark);"></div>⭐ Best Window</div>
+                <div class="legend-item2">
+                  <div class="legend-box" style="background:rgba(94,122,92,0.15);border:1px solid rgba(94,122,92,0.3);">
+                  </div><span id="legend-user">You</span> busy
+                </div>
+                <div class="legend-item2">
+                  <div class="legend-box"
+                    style="background:rgba(201,124,93,0.15);border:1px solid rgba(201,124,93,0.3);"></div><span
+                    class="partner-name-span">Partner</span> busy
+                </div>
+                <div class="legend-item2">
+                  <div class="legend-box"
+                    style="background:rgba(150,100,80,0.2);border:1px solid rgba(150,100,80,0.3);"></div>Both busy
+                </div>
+                <div class="legend-item2">
+                  <div class="legend-box" style="background:rgba(143,172,141,0.3);border:1px solid var(--sage);"></div>
+                  Both free
+                </div>
+                <div class="legend-item2">
+                  <div class="legend-box"
+                    style="background:linear-gradient(135deg,rgba(94,122,92,0.3),rgba(143,172,141,0.2));border:2px solid var(--sage-dark);">
+                  </div>⭐ Best Window
+                </div>
               </div>
               <div class="avail-matrix">
                 <div class="matrix-label"></div>
-                <div class="matrix-header">Mon</div><div class="matrix-header">Tue</div><div class="matrix-header">Wed</div>
-                <div class="matrix-header">Thu</div><div class="matrix-header">Fri</div><div class="matrix-header">Sat</div><div class="matrix-header">Sun</div>
+                <div class="matrix-header">Mon</div>
+                <div class="matrix-header">Tue</div>
+                <div class="matrix-header">Wed</div>
+                <div class="matrix-header">Thu</div>
+                <div class="matrix-header">Fri</div>
+                <div class="matrix-header">Sat</div>
+                <div class="matrix-header">Sun</div>
                 <div class="matrix-label" id="matrix-user-label">You</div>
                 <div class="matrix-cell sofia-busy">Work</div>
                 <div class="matrix-cell sofia-busy">Work</div>
@@ -304,23 +562,32 @@
             <div class="sidebar-card">
               <h4>Best Windows This Week</h4>
               <div style="display:flex;flex-direction:column;gap:10px;">
-                <div style="background:linear-gradient(135deg,rgba(94,122,92,0.12),rgba(143,172,141,0.06));border:1px solid var(--sage);border-radius:var(--radius-md);padding:14px;">
+                <div
+                  style="background:linear-gradient(135deg,rgba(94,122,92,0.12),rgba(143,172,141,0.06));border:1px solid var(--sage);border-radius:var(--radius-md);padding:14px;">
                   <div style="font-weight:600;color:var(--sage-dark);font-size:0.9rem;">⭐ Friday — Best!</div>
-                  <div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">Both free + your Ovulatory peak</div>
-                  <div style="font-size:0.8rem;color:var(--sage-dark);font-weight:600;margin-top:6px;">Score: 9.1/10</div>
+                  <div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">Both free + your Ovulatory peak
+                  </div>
+                  <div style="font-size:0.8rem;color:var(--sage-dark);font-weight:600;margin-top:6px;">Score: 9.1/10
+                  </div>
                 </div>
-                <div style="background:rgba(143,172,141,0.06);border:1px solid var(--card-border);border-radius:var(--radius-md);padding:14px;">
+                <div
+                  style="background:rgba(143,172,141,0.06);border:1px solid var(--card-border);border-radius:var(--radius-md);padding:14px;">
                   <div style="font-weight:600;color:var(--charcoal);font-size:0.9rem;">Wednesday</div>
                   <div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">Both free — Luteal phase</div>
-                  <div style="font-size:0.8rem;color:var(--text-muted);font-weight:500;margin-top:6px;">Score: 6.5/10</div>
+                  <div style="font-size:0.8rem;color:var(--text-muted);font-weight:500;margin-top:6px;">Score: 6.5/10
+                  </div>
                 </div>
-                <div style="background:rgba(143,172,141,0.06);border:1px solid var(--card-border);border-radius:var(--radius-md);padding:14px;">
+                <div
+                  style="background:rgba(143,172,141,0.06);border:1px solid var(--card-border);border-radius:var(--radius-md);padding:14px;">
                   <div style="font-weight:600;color:var(--charcoal);font-size:0.9rem;">Weekend</div>
                   <div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px;">Sat & Sun — Early Luteal</div>
-                  <div style="font-size:0.8rem;color:var(--text-muted);font-weight:500;margin-top:6px;">Score: 7.0/10</div>
+                  <div style="font-size:0.8rem;color:var(--text-muted);font-weight:500;margin-top:6px;">Score: 7.0/10
+                  </div>
                 </div>
               </div>
-              <button class="btn-primary" style="width:100%;justify-content:center;margin-top:16px;" onclick="switchTab('date-ideas',document.querySelector('[data-tab=date-ideas]'))">Generate Date Ideas →</button>
+              <button class="btn-primary" style="width:100%;justify-content:center;margin-top:16px;"
+                onclick="switchTab('date-ideas',document.querySelector('[data-tab=date-ideas]'))">Generate Date Ideas
+                →</button>
             </div>
           </div>
         </div>
@@ -336,7 +603,8 @@
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
                 <div class="form-group" style="margin-bottom:0;">
                   <label>Time Slot</label>
-                  <select id="date-slot" style="width:100%;background:var(--white);border:1.5px solid var(--card-border);border-radius:var(--radius-sm);padding:12px 16px;font-size:0.9rem;outline:none;">
+                  <select id="date-slot"
+                    style="width:100%;background:var(--white);border:1.5px solid var(--card-border);border-radius:var(--radius-sm);padding:12px 16px;font-size:0.9rem;outline:none;">
                     <option>Fri 19 — Day off ⭐</option>
                     <option>Wed 17 — Both free</option>
                     <option>Sat 20 — Free</option>
@@ -345,7 +613,8 @@
                 </div>
                 <div class="form-group" style="margin-bottom:0;">
                   <label>Budget Vibe</label>
-                  <select id="date-budget" style="width:100%;background:var(--white);border:1.5px solid var(--card-border);border-radius:var(--radius-sm);padding:12px 16px;font-size:0.9rem;outline:none;">
+                  <select id="date-budget"
+                    style="width:100%;background:var(--white);border:1.5px solid var(--card-border);border-radius:var(--radius-sm);padding:12px 16px;font-size:0.9rem;outline:none;">
                     <option>Cosy at home 🏡</option>
                     <option>Low-key outing ☕</option>
                     <option selected>Outdoorsy 🌿</option>
@@ -356,7 +625,9 @@
               </div>
               <div class="form-group" style="margin-bottom:16px;">
                 <label>Anything else? (dietary restrictions, preferences...)</label>
-                <input type="text" id="date-extra" style="width:100%;background:var(--white);border:1.5px solid var(--card-border);border-radius:var(--radius-sm);padding:12px 16px;font-size:0.9rem;outline:none;" placeholder="e.g. vegetarian, avoid crowded places, love art..." />
+                <input type="text" id="date-extra"
+                  style="width:100%;background:var(--white);border:1.5px solid var(--card-border);border-radius:var(--radius-sm);padding:12px 16px;font-size:0.9rem;outline:none;"
+                  placeholder="e.g. vegetarian, avoid crowded places, love art..." />
               </div>
               <button class="btn-primary" onclick="generateDates()">✨ Generate AI Date Ideas</button>
             </div>
@@ -372,18 +643,25 @@
                   </div>
                   <div style="flex:1;">
                     <h4 style="font-size:1.1rem;margin-bottom:8px;">Sunset Picnic at the Park</h4>
-                    <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:10px;">📍 Riverside Park · ⏰ 5:30pm Friday</div>
+                    <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:10px;">📍 Riverside Park · ⏰
+                      5:30pm Friday</div>
                     <div class="date-tags-full">
                       <span>🌿 Outdoorsy</span><span>💆 Low Pressure</span><span>✨ Romantic</span><span>🌅 Sunset</span>
                     </div>
-                    <div style="background:rgba(201,124,93,0.08);border:1px solid rgba(201,124,93,0.2);border-radius:var(--radius-sm);padding:12px;margin-bottom:14px;">
+                    <div
+                      style="background:rgba(201,124,93,0.08);border:1px solid rgba(201,124,93,0.2);border-radius:var(--radius-sm);padding:12px;margin-bottom:14px;">
                       <strong style="font-size:0.82rem;color:var(--charcoal);">💡 Jamie Tip:</strong>
-                      <p style="font-size:0.82rem;color:var(--charcoal);margin-top:4px;">Let Sofia lead the pace today — she's at peak energy and will love choosing the spot. Bring her favourite snacks as a surprise. Physical affection and eye contact will mean a lot right now.</p>
+                      <p style="font-size:0.82rem;color:var(--charcoal);margin-top:4px;">Let Sofia lead the pace today —
+                        she's at peak energy and will love choosing the spot. Bring her favourite snacks as a surprise.
+                        Physical affection and eye contact will mean a lot right now.</p>
                     </div>
                     <div class="date-actions">
-                      <button class="btn-primary" style="padding:10px 20px;font-size:0.85rem;" onclick="alert('Date planned! Added to calendar. 📅')">Plan This</button>
-                      <button class="btn-outline" style="padding:10px 20px;font-size:0.85rem;" onclick="alert('Saved! 💾')">Save</button>
-                      <button class="btn-ghost" style="padding:10px 20px;font-size:0.85rem;" onclick="alert('Shared with Jamie! 💬')">Tell Jamie</button>
+                      <button class="btn-primary" style="padding:10px 20px;font-size:0.85rem;"
+                        onclick="alert('Date planned! Added to calendar. 📅')">Plan This</button>
+                      <button class="btn-outline" style="padding:10px 20px;font-size:0.85rem;"
+                        onclick="alert('Saved! 💾')">Save</button>
+                      <button class="btn-ghost" style="padding:10px 20px;font-size:0.85rem;"
+                        onclick="alert('Shared with Jamie! 💬')">Tell Jamie</button>
                     </div>
                   </div>
                 </div>
@@ -398,25 +676,33 @@
                   </div>
                   <div style="flex:1;">
                     <h4 style="font-size:1.1rem;margin-bottom:8px;">Pottery Class for Two</h4>
-                    <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:10px;">📍 The Clay Studio · ⏰ 3pm Friday</div>
+                    <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:10px;">📍 The Clay Studio · ⏰
+                      3pm Friday</div>
                     <div class="date-tags-full">
                       <span>🎨 Creative</span><span>🤝 Hands-On</span><span>😄 Fun</span>
                     </div>
-                    <div style="background:rgba(201,124,93,0.08);border:1px solid rgba(201,124,93,0.2);border-radius:var(--radius-sm);padding:12px;margin-bottom:14px;">
+                    <div
+                      style="background:rgba(201,124,93,0.08);border:1px solid rgba(201,124,93,0.2);border-radius:var(--radius-sm);padding:12px;margin-bottom:14px;">
                       <strong style="font-size:0.82rem;color:var(--charcoal);">💡 Jamie Tip:</strong>
-                      <p style="font-size:0.82rem;color:var(--charcoal);margin-top:4px;">Sofia loves creative expression during this phase. Let her take the creative lead and be enthusiastic about her ideas — she'll feel deeply appreciated.</p>
+                      <p style="font-size:0.82rem;color:var(--charcoal);margin-top:4px;">Sofia loves creative expression
+                        during this phase. Let her take the creative lead and be enthusiastic about her ideas — she'll
+                        feel deeply appreciated.</p>
                     </div>
                     <div class="date-actions">
-                      <button class="btn-primary" style="padding:10px 20px;font-size:0.85rem;" onclick="alert('Date planned! 📅')">Plan This</button>
-                      <button class="btn-outline" style="padding:10px 20px;font-size:0.85rem;" onclick="alert('Saved! 💾')">Save</button>
-                      <button class="btn-ghost" style="padding:10px 20px;font-size:0.85rem;" onclick="alert('Shared! 💬')">Tell Jamie</button>
+                      <button class="btn-primary" style="padding:10px 20px;font-size:0.85rem;"
+                        onclick="alert('Date planned! 📅')">Plan This</button>
+                      <button class="btn-outline" style="padding:10px 20px;font-size:0.85rem;"
+                        onclick="alert('Saved! 💾')">Save</button>
+                      <button class="btn-ghost" style="padding:10px 20px;font-size:0.85rem;"
+                        onclick="alert('Shared! 💬')">Tell Jamie</button>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div style="display:flex;gap:12px;margin-top:8px;">
-                <button class="btn-ghost" onclick="alert('Regenerating ideas...')">🔄 Regenerate Different Ideas</button>
+                <button class="btn-ghost" onclick="alert('Regenerating ideas...')">🔄 Regenerate Different
+                  Ideas</button>
                 <button class="btn-outline" onclick="alert('Generating more...')">+ Generate 3 More Ideas</button>
               </div>
             </div>
@@ -428,16 +714,20 @@
               <div style="text-align:center;padding:16px 0;">
                 <div style="font-size:2.5rem;margin-bottom:8px;">⭐</div>
                 <div style="font-family:var(--font-display);font-size:1.5rem;color:var(--sage-dark);">Friday</div>
-                <div id="optimal-window-sub" style="font-size:0.78rem;color:var(--text-muted);">Set up your cycle to see best windows</div>
-                <div style="font-size:1.2rem;font-family:var(--font-display);color:var(--sage-dark);margin-top:8px;">9.1/10</div>
+                <div id="optimal-window-sub" style="font-size:0.78rem;color:var(--text-muted);">Set up your cycle to see
+                  best windows</div>
+                <div style="font-size:1.2rem;font-family:var(--font-display);color:var(--sage-dark);margin-top:8px;">
+                  9.1/10</div>
               </div>
             </div>
             <div class="sidebar-card">
               <h4>Saved Dates</h4>
               <div id="saved-dates-list" style="display:flex;flex-direction:column;gap:8px;">
-                <div style="font-size:0.82rem;color:var(--text-muted);text-align:center;padding:8px;">No saved dates yet.</div>
+                <div style="font-size:0.82rem;color:var(--text-muted);text-align:center;padding:8px;">No saved dates
+                  yet.</div>
               </div>
-              <button class="btn-ghost" style="width:100%;margin-top:12px;justify-content:center;font-size:0.82rem;" onclick="alert('Syncing to Google Calendar...')">📅 Sync to Calendar</button>
+              <button class="btn-ghost" style="width:100%;margin-top:12px;justify-content:center;font-size:0.82rem;"
+                onclick="alert('Syncing to Google Calendar...')">📅 Sync to Calendar</button>
             </div>
           </div>
         </div>
@@ -449,31 +739,85 @@
           <div class="dashboard-card">
             <h3>🔒 Visibility Controls</h3>
             <p style="font-size:0.88rem;margin-bottom:20px;">Control exactly what Jamie can see about your cycle.</p>
-            <p style="font-size:0.88rem;margin-bottom:20px;">Control exactly what your partner can see about your cycle.</p>
+            <p style="font-size:0.88rem;margin-bottom:20px;">Control exactly what your partner can see about your cycle.
+            </p>
             <div>
-              <div class="privacy-toggle"><div class="toggle-info"><strong>Current Phase</strong><small>Share which phase you're in (e.g., Ovulatory)</small></div><label class="toggle-switch"><input type="checkbox" checked /><div class="toggle-slider"></div></label></div>
-              <div class="privacy-toggle"><div class="toggle-info"><strong>Mood Levels</strong><small>Share your general mood state</small></div><label class="toggle-switch"><input type="checkbox" checked /><div class="toggle-slider"></div></label></div>
-              <div class="privacy-toggle"><div class="toggle-info"><strong>Energy Level</strong><small>Share your daily energy rating</small></div><label class="toggle-switch"><input type="checkbox" checked /><div class="toggle-slider"></div></label></div>
-              <div class="privacy-toggle"><div class="toggle-info"><strong>Specific Symptoms</strong><small>Symptom details (cramps, bloating etc.)</small></div><label class="toggle-switch"><input type="checkbox" /><div class="toggle-slider"></div></label></div>
-              <div class="privacy-toggle"><div class="toggle-info"><strong>Skin Status</strong><small>Share daily skin condition</small></div><label class="toggle-switch"><input type="checkbox" /><div class="toggle-slider"></div></label></div>
+              <div class="privacy-toggle">
+                <div class="toggle-info"><strong>Current Phase</strong><small>Share which phase you're in (e.g.,
+                    Ovulatory)</small></div><label class="toggle-switch"><input type="checkbox" checked />
+                  <div class="toggle-slider"></div>
+                </label>
+              </div>
+              <div class="privacy-toggle">
+                <div class="toggle-info"><strong>Mood Levels</strong><small>Share your general mood state</small></div>
+                <label class="toggle-switch"><input type="checkbox" checked />
+                  <div class="toggle-slider"></div>
+                </label>
+              </div>
+              <div class="privacy-toggle">
+                <div class="toggle-info"><strong>Energy Level</strong><small>Share your daily energy rating</small>
+                </div><label class="toggle-switch"><input type="checkbox" checked />
+                  <div class="toggle-slider"></div>
+                </label>
+              </div>
+              <div class="privacy-toggle">
+                <div class="toggle-info"><strong>Specific Symptoms</strong><small>Symptom details (cramps, bloating
+                    etc.)</small></div><label class="toggle-switch"><input type="checkbox" />
+                  <div class="toggle-slider"></div>
+                </label>
+              </div>
+              <div class="privacy-toggle">
+                <div class="toggle-info"><strong>Skin Status</strong><small>Share daily skin condition</small></div>
+                <label class="toggle-switch"><input type="checkbox" />
+                  <div class="toggle-slider"></div>
+                </label>
+              </div>
             </div>
           </div>
 
           <div class="dashboard-card" style="margin-top:20px;">
             <h3>🔔 Automated Partner Nudges</h3>
-            <p id="auto-nudge-label" style="font-size:0.88rem;margin-bottom:20px;">Let GenFlo automatically notify your partner at key moments.</p>
+            <p id="auto-nudge-label" style="font-size:0.88rem;margin-bottom:20px;">Let GenFlo automatically notify your
+              partner at key moments.</p>
             <div>
-              <div class="privacy-toggle"><div class="toggle-info"><strong>PMS Alert</strong><small>Auto-notify 5 days before your PMS window</small></div><label class="toggle-switch"><input type="checkbox" checked /><div class="toggle-slider"></div></label></div>
-              <div class="privacy-toggle"><div class="toggle-info"><strong>Best Date Window Alert</strong><small>Notify when a great date window opens</small></div><label class="toggle-switch"><input type="checkbox" checked /><div class="toggle-slider"></div></label></div>
-              <div class="privacy-toggle"><div class="toggle-info"><strong>Peak Energy Alert</strong><small>Alert when you enter your Ovulatory peak</small></div><label class="toggle-switch"><input type="checkbox" /><div class="toggle-slider"></div></label></div>
+              <div class="privacy-toggle">
+                <div class="toggle-info"><strong>PMS Alert</strong><small>Auto-notify 5 days before your PMS
+                    window</small></div><label class="toggle-switch"><input type="checkbox" checked />
+                  <div class="toggle-slider"></div>
+                </label>
+              </div>
+              <div class="privacy-toggle">
+                <div class="toggle-info"><strong>Best Date Window Alert</strong><small>Notify when a great date window
+                    opens</small></div><label class="toggle-switch"><input type="checkbox" checked />
+                  <div class="toggle-slider"></div>
+                </label>
+              </div>
+              <div class="privacy-toggle">
+                <div class="toggle-info"><strong>Peak Energy Alert</strong><small>Alert when you enter your Ovulatory
+                    peak</small></div><label class="toggle-switch"><input type="checkbox" />
+                  <div class="toggle-slider"></div>
+                </label>
+              </div>
             </div>
           </div>
 
           <div class="dashboard-card" style="margin-top:20px;">
             <h3>🤖 AI & Automation</h3>
             <div>
-              <div class="privacy-toggle"><div class="toggle-info"><strong>Weekly Schedule Auto-Refresh</strong><small>Automatically update partner schedule every Monday</small></div><label class="toggle-switch"><input type="checkbox" checked /><div class="toggle-slider"></div></label></div>
-              <div class="privacy-toggle"><div class="toggle-info"><strong>AI Learns from Saved Dates</strong><small>Aria improves suggestions based on your saved preferences</small></div><label class="toggle-switch"><input type="checkbox" checked /><div class="toggle-slider"></div></label></div>
+              <div class="privacy-toggle">
+                <div class="toggle-info"><strong>Weekly Schedule Auto-Refresh</strong><small>Automatically update
+                    partner schedule every Monday</small></div><label class="toggle-switch"><input type="checkbox"
+                    checked />
+                  <div class="toggle-slider"></div>
+                </label>
+              </div>
+              <div class="privacy-toggle">
+                <div class="toggle-info"><strong>AI Learns from Saved Dates</strong><small>Aria improves suggestions
+                    based on your saved preferences</small></div><label class="toggle-switch"><input type="checkbox"
+                    checked />
+                  <div class="toggle-slider"></div>
+                </label>
+              </div>
             </div>
           </div>
 
@@ -481,8 +825,11 @@
             <h3>Partner Connection</h3>
             <p style="font-size:0.88rem;margin-bottom:16px;">Manage your partnership connection.</p>
             <div style="display:flex;gap:12px;">
-              <button class="btn-ghost" onclick="alert('Calendar disconnected.')" style="font-size:0.85rem;">Disconnect Calendar</button>
-              <button type="button" style="background:rgba(201,124,93,0.1);border:1px solid rgba(201,124,93,0.3);color:var(--terracotta);padding:12px 20px;border-radius:100px;font-size:0.85rem;cursor:pointer;font-family:var(--font-body);transition:var(--transition);" onclick="removePartner()">Remove Partner</button>
+              <button class="btn-ghost" onclick="alert('Calendar disconnected.')" style="font-size:0.85rem;">Disconnect
+                Calendar</button>
+              <button type="button"
+                style="background:rgba(201,124,93,0.1);border:1px solid rgba(201,124,93,0.3);color:var(--terracotta);padding:12px 20px;border-radius:100px;font-size:0.85rem;cursor:pointer;font-family:var(--font-body);transition:var(--transition);"
+                onclick="removePartner()">Remove Partner</button>
             </div>
           </div>
         </div>
@@ -585,10 +932,10 @@
       btn.disabled = false;
       if (result && Array.isArray(result) && result.length > 0) {
         document.getElementById('date-results').innerHTML = result.map(d =>
-          `<div class="date-card-full"><div style="display:flex;gap:20px;align-items:flex-start;"><div><div class="date-score-big">${d.score?.toFixed(1)||'—'}<small style="font-size:1rem;">/10</small></div><div style="font-size:0.72rem;color:var(--text-muted);">Match Score</div></div><div style="flex:1;"><h4 style="font-size:1.1rem;margin-bottom:8px;">${d.title}</h4><p style="font-size:0.82rem;color:var(--text-muted);">${d.description||''}</p><div class="date-tags-full">${(d.tags||[]).map(t=>`<span>${t}</span>`).join('')}</div>${d.jamie_tip?`<div style="background:rgba(201,124,93,0.08);border:1px solid rgba(201,124,93,0.2);border-radius:var(--radius-sm);padding:12px;margin:12px 0;"><strong style="font-size:0.82rem;">💡 Partner Tip:</strong><p style="font-size:0.82rem;margin-top:4px;">${d.jamie_tip}</p></div>`:''}<div class="date-actions"><button type="button" class="btn-outline" style="padding:10px 20px;font-size:0.85rem;" onclick='saveDate(${JSON.stringify(d).replace(/'/g,"&apos;")})'>💾 Save</button></div></div></div></div>`
+          `<div class="date-card-full"><div style="display:flex;gap:20px;align-items:flex-start;"><div><div class="date-score-big">${d.score?.toFixed(1) || '—'}<small style="font-size:1rem;">/10</small></div><div style="font-size:0.72rem;color:var(--text-muted);">Match Score</div></div><div style="flex:1;"><h4 style="font-size:1.1rem;margin-bottom:8px;">${d.title}</h4><p style="font-size:0.82rem;color:var(--text-muted);">${d.description || ''}</p><div class="date-tags-full">${(d.tags || []).map(t => `<span>${t}</span>`).join('')}</div>${d.jamie_tip ? `<div style="background:rgba(201,124,93,0.08);border:1px solid rgba(201,124,93,0.2);border-radius:var(--radius-sm);padding:12px;margin:12px 0;"><strong style="font-size:0.82rem;">💡 Partner Tip:</strong><p style="font-size:0.82rem;margin-top:4px;">${d.jamie_tip}</p></div>` : ''}<div class="date-actions"><button type="button" class="btn-outline" style="padding:10px 20px;font-size:0.85rem;" onclick='saveDate(${JSON.stringify(d).replace(/'/g, "&apos;")})'>💾 Save</button></div></div></div></div>`
         ).join('');
       } else {
-        document.getElementById('date-results').innerHTML = `<div style="padding:20px;text-align:center;color:var(--text-muted);">${result?.error||'No ideas generated. Try adjusting preferences.'}</div>`;
+        document.getElementById('date-results').innerHTML = `<div style="padding:20px;text-align:center;color:var(--text-muted);">${result?.error || 'No ideas generated. Try adjusting preferences.'}</div>`;
       }
     }
     async function saveDate(d) {
@@ -600,7 +947,7 @@
       const dates = await GenFloAPI.getSavedDates();
       const el = document.getElementById('saved-dates-list');
       if (el && dates && dates.length > 0) {
-        el.innerHTML = dates.map(d => `<div style="font-size:0.82rem;color:var(--charcoal);padding:10px;background:rgba(143,172,141,0.06);border-radius:var(--radius-sm);">💾 ${d.title}${d.planned?' ✓':''}</div>`).join('');
+        el.innerHTML = dates.map(d => `<div style="font-size:0.82rem;color:var(--charcoal);padding:10px;background:rgba(143,172,141,0.06);border-radius:var(--radius-sm);">💾 ${d.title}${d.planned ? ' ✓' : ''}</div>`).join('');
       }
     }
     async function removePartner() {
@@ -613,4 +960,5 @@
     initCycle();
   </script>
 </body>
+
 </html>
