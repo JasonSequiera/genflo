@@ -38,6 +38,25 @@ app.use('/api/partner', require('./routes/partner'));
 app.use('/api/aria',    require('./routes/aria'));
 app.use('/api/dates',   require('./routes/dates'));
 
+// ── Root Route ────────────────────────────────────
+app.get('/', (req, res) => {
+  res.json({
+    app: 'GenFlo API',
+    status: 'running',
+    version: '1.0.0',
+    message: 'GenFlo backend is live 🌿',
+    endpoints: {
+      health:  '/api/health',
+      auth:    '/api/auth',
+      cycle:   '/api/cycle',
+      logs:    '/api/logs',
+      partner: '/api/partner',
+      aria:    '/api/aria',
+      dates:   '/api/dates'
+    }
+  });
+});
+
 // ── Health Check ──────────────────────────────────
 app.get('/api/health', (req, res) => {
   res.json({
