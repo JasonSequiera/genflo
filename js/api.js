@@ -3,13 +3,13 @@
 // Include this on every page: <script src="/js/api.js"></script>
 // ══════════════════════════════════════════════════
 
-const API_BASE = 'http://localhost:3001/api';
+const API_BASE = 'https://genflo.onrender.com/api';
 
 const GenFloAPI = {
 
   // ── Auth helpers ──────────────────────────────
   getToken: () => localStorage.getItem('genflo_token'),
-  getUser:  () => JSON.parse(localStorage.getItem('genflo_user') || 'null'),
+  getUser: () => JSON.parse(localStorage.getItem('genflo_user') || 'null'),
   isLoggedIn: () => !!localStorage.getItem('genflo_token'),
 
   saveSession(token, user) {
@@ -46,10 +46,10 @@ const GenFloAPI = {
     }
   },
 
-  get:    (path)       => GenFloAPI.request('GET', path),
-  post:   (path, body) => GenFloAPI.request('POST', path, body),
-  patch:  (path, body) => GenFloAPI.request('PATCH', path, body),
-  delete: (path)       => GenFloAPI.request('DELETE', path),
+  get: (path) => GenFloAPI.request('GET', path),
+  post: (path, body) => GenFloAPI.request('POST', path, body),
+  patch: (path, body) => GenFloAPI.request('PATCH', path, body),
+  delete: (path) => GenFloAPI.request('DELETE', path),
 
   // ── Auth ─────────────────────────────────────
   async register(name, email, password) {
@@ -65,39 +65,39 @@ const GenFloAPI = {
   },
 
   // ── Cycle ─────────────────────────────────────
-  getCycle:      () => GenFloAPI.get('/cycle/current'),
-  setupCycle:    (body) => GenFloAPI.post('/cycle/setup', body),
-  getCalendar:   (month, year) => GenFloAPI.get(`/cycle/calendar?month=${month}&year=${year}`),
+  getCycle: () => GenFloAPI.get('/cycle/current'),
+  setupCycle: (body) => GenFloAPI.post('/cycle/setup', body),
+  getCalendar: (month, year) => GenFloAPI.get(`/cycle/calendar?month=${month}&year=${year}`),
 
   // ── Logs ──────────────────────────────────────
-  saveLog:           (body) => GenFloAPI.post('/logs/daily', body),
-  getTodayLog:       () => GenFloAPI.get('/logs/today'),
-  getLogHistory:     (days = 30) => GenFloAPI.get(`/logs/history?days=${days}`),
+  saveLog: (body) => GenFloAPI.post('/logs/daily', body),
+  getTodayLog: () => GenFloAPI.get('/logs/today'),
+  getLogHistory: (days = 30) => GenFloAPI.get(`/logs/history?days=${days}`),
   saveSupplementLog: (body) => GenFloAPI.post('/logs/supplements', body),
-  getSupplements:    () => GenFloAPI.get('/logs/supplements'),
+  getSupplements: () => GenFloAPI.get('/logs/supplements'),
 
   // ── Aria ──────────────────────────────────────
-  ariaChat:       (message) => GenFloAPI.post('/aria/chat', { message }),
-  ariaHistory:    () => GenFloAPI.get('/aria/history'),
+  ariaChat: (message) => GenFloAPI.post('/aria/chat', { message }),
+  ariaHistory: () => GenFloAPI.get('/aria/history'),
   ariaDailyInsight: () => GenFloAPI.get('/aria/daily-insight'),
 
   // ── Partner ───────────────────────────────────
-  connectPartner:  (body) => GenFloAPI.post('/partner/connect', body),
-  getPartner:      () => GenFloAPI.get('/partner/info'),
-  sendNudge:       (message, mood) => GenFloAPI.post('/partner/nudge', { message, mood }),
-  getNudges:       () => GenFloAPI.get('/partner/nudges'),
-  saveSchedule:    (schedule) => GenFloAPI.post('/partner/schedule', { schedule }),
-  getSchedule:     () => GenFloAPI.get('/partner/schedule'),
-  getBestWindows:  () => GenFloAPI.get('/partner/best-windows'),
-  updateVisibility:(visibility) => GenFloAPI.patch('/partner/visibility', { visibility }),
-  removePartner:   () => GenFloAPI.delete('/partner'),
+  connectPartner: (body) => GenFloAPI.post('/partner/connect', body),
+  getPartner: () => GenFloAPI.get('/partner/info'),
+  sendNudge: (message, mood) => GenFloAPI.post('/partner/nudge', { message, mood }),
+  getNudges: () => GenFloAPI.get('/partner/nudges'),
+  saveSchedule: (schedule) => GenFloAPI.post('/partner/schedule', { schedule }),
+  getSchedule: () => GenFloAPI.get('/partner/schedule'),
+  getBestWindows: () => GenFloAPI.get('/partner/best-windows'),
+  updateVisibility: (visibility) => GenFloAPI.patch('/partner/visibility', { visibility }),
+  removePartner: () => GenFloAPI.delete('/partner'),
 
   // ── Date Ideas ────────────────────────────────
-  generateDates:  (body) => GenFloAPI.post('/dates/generate', body),
-  saveDate:       (body) => GenFloAPI.post('/dates/save', body),
-  getSavedDates:  () => GenFloAPI.get('/dates/saved'),
-  planDate:       (id, planned_date) => GenFloAPI.patch(`/dates/${id}/plan`, { planned_date }),
-  deleteDate:     (id) => GenFloAPI.delete(`/dates/${id}`)
+  generateDates: (body) => GenFloAPI.post('/dates/generate', body),
+  saveDate: (body) => GenFloAPI.post('/dates/save', body),
+  getSavedDates: () => GenFloAPI.get('/dates/saved'),
+  planDate: (id, planned_date) => GenFloAPI.patch(`/dates/${id}/plan`, { planned_date }),
+  deleteDate: (id) => GenFloAPI.delete(`/dates/${id}`)
 };
 
 // ── Auto-load cycle data into page ───────────────
