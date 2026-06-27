@@ -22,11 +22,10 @@
       </a>
       <ul class="nav-links">
         <li><a href="#features">Features</a></li>
-        <li><a href="#cycle">Cycle</a></li>
-        <li><a href="#skin">Skin</a></li>
-        <li><a href="#wellness">Wellness</a></li>
-        <li><a href="#partner">Partner</a></li>
-        <li><a href="aria.html">Ask Aria</a></li>
+        <li><a href="#what-you-can-do">What You Can Do</a></li>
+        <li><a href="#aria-section">Aria AI</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
       <div class="nav-actions">
         <a href="login.html" class="btn-ghost">Sign In</a>
@@ -38,11 +37,10 @@
     </div>
     <div class="nav-mobile" id="nav-mobile">
       <a href="#features">Features</a>
-      <a href="#cycle">Cycle</a>
-      <a href="#skin">Skin</a>
-      <a href="#wellness">Wellness</a>
-      <a href="#partner">Partner</a>
-      <a href="aria.html">Ask Aria</a>
+      <a href="#what-you-can-do">What You Can Do</a>
+      <a href="#aria-section">Aria AI</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
       <a href="login.html">Sign In</a>
       <a href="onboarding.html" class="btn-primary">Begin Journey</a>
     </div>
@@ -55,10 +53,10 @@
     <div class="hero-bg-orb orb-1"></div>
     <div class="hero-bg-orb orb-2"></div>
     <div class="hero-content">
-      <div class="hero-badge">✦ Powered by Aria AI</div>
+      <div class="hero-badge">Powered by Aria AI</div>
       <h1 class="hero-title">
         Understand Your Cycle.<br />
-        <em>Visualizing Your Journey.</em>
+        <em>Elevate Every Day.</em>
       </h1>
       <p class="hero-subtitle">
         GenFlo is your intelligent wellness companion — blending cycle science,
@@ -69,13 +67,7 @@
         <a href="onboarding.html" class="btn-primary btn-lg">Begin Your Journey</a>
         <a href="dashboard.html" class="btn-ghost btn-lg">See Dashboard</a>
       </div>
-      <div class="hero-stats">
-        <div class="stat"><span class="stat-num">4</span><span class="stat-label">Cycle Phases</span></div>
-        <div class="stat-divider"></div>
-        <div class="stat"><span class="stat-num">28</span><span class="stat-label">Day Insights</span></div>
-        <div class="stat-divider"></div>
-        <div class="stat"><span class="stat-num">AI</span><span class="stat-label">Companion Aria</span></div>
-      </div>
+
     </div>
     <div class="hero-visual">
       <div class="cycle-orb">
@@ -92,50 +84,20 @@
         </div>
       </div>
       <div class="floating-card card-skin">
-        <span class="card-icon">✨</span>
+        <span class="card-icon-svg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3c-4.97 0-9 3.582-9 8 0 2.5 1.32 4.71 3.37 6.18L6 21l3.5-1.12C10.27 20.28 11.12 20.4 12 20.4c4.97 0 9-3.582 9-8s-4.03-8-9-8z"/></svg>
+        </span>
         <div><strong>Skin Glow Peak</strong><br/><small>Estrogen is high today</small></div>
       </div>
       <div class="floating-card card-energy">
-        <span class="card-icon">⚡</span>
+        <span class="card-icon-svg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </span>
         <div><strong>High Energy</strong><br/><small>Perfect for HIIT</small></div>
       </div>
       <div class="floating-card card-aria">
-        <span class="card-icon">🤖</span>
+        <span class="card-icon-svg aria-icon-dot"></span>
         <div><strong>Aria says:</strong><br/><small>"Today is your peak — shine!"</small></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       PHASES STRIP
-  ══════════════════════════════════════ -->
-  <section class="phases-strip">
-    <div class="container">
-      <div class="phases-grid">
-        <div class="phase-card" data-phase="menstrual">
-          <div class="phase-icon">🌑</div>
-          <h3>Menstrual</h3>
-          <p>Rest, reflect and restore. Hormones are at their lowest.</p>
-          <div class="phase-days">Days 1–5</div>
-        </div>
-        <div class="phase-card" data-phase="follicular">
-          <div class="phase-icon">🌒</div>
-          <h3>Follicular</h3>
-          <p>Energy rises with estrogen. Great for new beginnings.</p>
-          <div class="phase-days">Days 6–13</div>
-        </div>
-        <div class="phase-card active" data-phase="ovulatory">
-          <div class="phase-icon">🌕</div>
-          <h3>Ovulatory</h3>
-          <p>Peak confidence and glow. Social and magnetic energy.</p>
-          <div class="phase-days">Days 14–16</div>
-        </div>
-        <div class="phase-card" data-phase="luteal">
-          <div class="phase-icon">🌘</div>
-          <h3>Luteal</h3>
-          <p>Wind down and nurture. Progesterone takes the lead.</p>
-          <div class="phase-days">Days 17–28</div>
-        </div>
       </div>
     </div>
   </section>
@@ -153,46 +115,146 @@
       <div class="features-bento">
         <!-- Big card -->
         <a href="dashboard.html" class="bento-card bento-large" id="bento-dashboard">
-          <div class="bento-icon">📊</div>
+          <div class="bento-icon-line">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
           <h3>Daily Dashboard</h3>
           <p>Your personalized at-a-glance view — cycle day, phase status, energy levels and Aria's daily insight, all in one place.</p>
           <div class="bento-arrow">→</div>
         </a>
         <!-- Aria card -->
         <a href="aria.html" class="bento-card bento-highlight" id="bento-aria">
-          <div class="bento-icon">🤖</div>
+          <div class="bento-icon-line">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/><circle cx="18" cy="18" r="3" fill="currentColor" opacity="0.3"/><path d="M18 16v2m0 2h.01" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
           <h3>Aria AI Companion</h3>
           <p>Your always-on hormonal health coach. Ask anything from skincare tips to emotional check-ins.</p>
           <div class="bento-arrow">→</div>
         </a>
         <!-- Cycle card -->
         <a href="cycle.html" class="bento-card" id="bento-cycle">
-          <div class="bento-icon">🌙</div>
+          <div class="bento-icon-line">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 9 9"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
           <h3>Cycle Tracking</h3>
-          <p>Visual timeline, predictive forecasting & PCOS/PMDD management tools.</p>
+          <p>Visual timeline, predictive forecasting &amp; PCOS/PMDD management tools.</p>
           <div class="bento-arrow">→</div>
         </a>
         <!-- Skin card -->
         <a href="skin.html" class="bento-card" id="bento-skin">
-          <div class="bento-icon">✨</div>
+          <div class="bento-icon-line">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9" stroke-width="2"/><line x1="15" y1="9" x2="15.01" y2="9" stroke-width="2"/></svg>
+          </div>
           <h3>Hormonal Skincare</h3>
-          <p>Phase-based skin guide, daily tracker & adaptive routine recommendations.</p>
+          <p>Phase-based skin guide, daily tracker &amp; adaptive routine recommendations.</p>
           <div class="bento-arrow">→</div>
         </a>
         <!-- Wellness card -->
         <a href="wellness.html" class="bento-card" id="bento-wellness">
-          <div class="bento-icon">🥗</div>
-          <h3>Nutrition & Fitness</h3>
-          <p>Cycle-synced meals, supplement checklists & adaptive workout planning.</p>
+          <div class="bento-icon-line">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3>Nutrition &amp; Fitness</h3>
+          <p>Cycle-synced meals, supplement checklists &amp; adaptive workout planning.</p>
           <div class="bento-arrow">→</div>
         </a>
         <!-- Partner card big -->
         <a href="partner.html" class="bento-card bento-large" id="bento-partner">
-          <div class="bento-icon">💑</div>
+          <div class="bento-icon-line">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
           <h3>Partner Sync</h3>
           <p>Sync schedules, share cycle insights with your partner and let Aria plan the perfect hormone-aware date nights.</p>
           <div class="bento-arrow">→</div>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       WHAT YOU CAN DO (Flo-style section)
+  ══════════════════════════════════════ -->
+  <section class="what-you-can-do" id="what-you-can-do">
+    <div class="container">
+      <div class="wycd-layout">
+        <!-- Left: app visual mockup -->
+        <div class="wycd-visual">
+          <div class="app-mockup">
+            <div class="mockup-header">
+              <span class="mockup-date">June 27</span>
+              <div class="mockup-avatar">GF</div>
+            </div>
+            <div class="mockup-day-display">
+              <div class="mockup-label">Cycle Day</div>
+              <div class="mockup-day-num">14</div>
+              <div class="mockup-phase-badge">Ovulatory Phase</div>
+            </div>
+            <div class="mockup-week">
+              <div class="mockup-week-day">24</div>
+              <div class="mockup-week-day">25</div>
+              <div class="mockup-week-day">26</div>
+              <div class="mockup-week-day active">27</div>
+              <div class="mockup-week-day">28</div>
+              <div class="mockup-week-day">29</div>
+              <div class="mockup-week-day">30</div>
+            </div>
+            <div class="mockup-insights-label">My daily insights</div>
+            <div class="mockup-chips">
+              <div class="mockup-chip">
+                <div class="chip-icon-line">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                </div>
+                <span>Log symptoms</span>
+              </div>
+              <div class="mockup-chip highlight">
+                <div class="chip-icon-line">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                </div>
+                <span>Symptoms to expect</span>
+              </div>
+              <div class="mockup-chip">
+                <div class="chip-icon-line">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
+                <span>Cycle day 14</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: feature list -->
+        <div class="wycd-features">
+          <div class="section-badge">What You Can Do</div>
+          <h2>What can you do with GenFlo?</h2>
+
+          <div class="wycd-feature-item active" data-wycd="0">
+            <div class="wycd-feature-content">
+              <h3>Track your cycle and symptoms</h3>
+              <p>Figure out what's normal for you with our period and cycle tracker. Spot patterns in your symptoms and know when your period is likely to start so you're always prepared.</p>
+            </div>
+          </div>
+
+          <div class="wycd-feature-item" data-wycd="1">
+            <div class="wycd-feature-content">
+              <h3>Understand your fertility better</h3>
+              <p>Get daily conception tips from our experts and learn how to read your body's fertility signals — so you can maximize your chances of a positive outcome every cycle.</p>
+            </div>
+          </div>
+
+          <div class="wycd-feature-item" data-wycd="2">
+            <div class="wycd-feature-content">
+              <h3>Get personalized skincare routines</h3>
+              <p>Discover how each cycle phase affects your skin. Receive adaptive, research-backed skincare routines tailored to your hormonal patterns — from glow peaks to breakout windows.</p>
+            </div>
+          </div>
+
+          <div class="wycd-feature-item" data-wycd="3">
+            <div class="wycd-feature-content">
+              <h3>Sync with your partner</h3>
+              <p>Share cycle insights with your partner, sync schedules, and let Aria generate hormone-aware date ideas at the perfect moment for both of you.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -208,20 +270,20 @@
           <h2>Say Hello to Aria</h2>
           <p>Aria is GenFlo's built-in AI health companion — always ready to answer your hormone questions, suggest today's skincare routine, log your symptoms, or simply check in on how you're feeling.</p>
           <ul class="aria-features">
-            <li>✦ Personalized daily hormonal insights</li>
-            <li>✦ Skin & nutrition tips per phase</li>
-            <li>✦ Symptom logging through conversation</li>
-            <li>✦ Emotional support & mood check-ins</li>
-            <li>✦ Partner communication coaching</li>
+            <li>Personalized daily hormonal insights</li>
+            <li>Skin &amp; nutrition tips per phase</li>
+            <li>Symptom logging through conversation</li>
+            <li>Emotional support &amp; mood check-ins</li>
+            <li>Partner communication coaching</li>
           </ul>
-          <a href="aria.html" class="btn-primary">Chat with Aria →</a>
+          <a href="aria.html" class="btn-primary">Chat with Aria</a>
         </div>
         <div class="aria-chat-preview">
           <div class="chat-bubble aria-bubble">
             <div class="chat-avatar">A</div>
             <div class="chat-content">
               <strong>Aria</strong>
-              <p>Good morning! 🌿 You're on Day 14 — your Ovulatory phase. Estrogen is peaking which means your skin is glowing and your energy is high. Perfect day for social plans or creative work!</p>
+              <p>Good morning! You're on Day 14 — your Ovulatory phase. Estrogen is peaking which means your skin is glowing and your energy is high. Perfect day for social plans or creative work!</p>
             </div>
           </div>
           <div class="chat-bubble user-bubble">
@@ -235,7 +297,7 @@
             <div class="chat-avatar">A</div>
             <div class="chat-content">
               <strong>Aria</strong>
-              <p>During ovulation, focus on antioxidant-rich foods like berries, leafy greens, and zinc-rich seeds. These support egg health and the estrogen surge. 🫐✨</p>
+              <p>During ovulation, focus on antioxidant-rich foods like berries, leafy greens, and zinc-rich seeds. These support egg health and the estrogen surge.</p>
             </div>
           </div>
           <a href="aria.html" class="chat-cta">Continue chatting with Aria →</a>
@@ -258,27 +320,33 @@
               <div class="tl-phase tl-ovulatory tl-active" style="width:11%">Ovulatory</div>
               <div class="tl-phase tl-luteal" style="width:42%">Luteal</div>
             </div>
-            <div class="timeline-marker" style="left:50%">
-              <div class="marker-dot"></div>
-              <div class="marker-label">Day 14 — You are here</div>
+            <div class="phase-active-label">
+              <span class="phase-active-pip"></span>
+              Currently in <strong>Ovulatory Phase</strong> — Day 14
             </div>
             <div class="forecast-cards">
               <div class="forecast-card">
-                <span class="forecast-icon">🩸</span>
+                <div class="forecast-icon-line">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </div>
                 <div>
                   <strong>Next Period</strong>
                   <span>in 14 days</span>
                 </div>
               </div>
               <div class="forecast-card">
-                <span class="forecast-icon">⚠️</span>
+                <div class="forecast-icon-line">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2"/></svg>
+                </div>
                 <div>
                   <strong>PMS Window</strong>
                   <span>in 9 days</span>
                 </div>
               </div>
               <div class="forecast-card">
-                <span class="forecast-icon">🌕</span>
+                <div class="forecast-icon-line">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12a4 4 0 1 0 8 0"/></svg>
+                </div>
                 <div>
                   <strong>Next Phase</strong>
                   <span>Luteal in 3 days</span>
@@ -293,7 +361,7 @@
           <p>GenFlo's visual cycle timeline maps all 28 days, predicts upcoming biological events and provides condition-specific modules for PCOS, PCOD and PMDD.</p>
           <ul class="feature-list">
             <li>Visual 28-day cycle timeline</li>
-            <li>PMS countdown & forecasting</li>
+            <li>PMS countdown &amp; forecasting</li>
             <li>PCOS / PMDD management modules</li>
           </ul>
           <a href="cycle.html" class="btn-outline">Explore Cycle Tracking →</a>
@@ -314,7 +382,7 @@
           <p>Discover how each cycle phase affects your skin and get adaptive routine recommendations powered by research-backed insights.</p>
           <ul class="feature-list">
             <li>Phase-based educational skin guide</li>
-            <li>Daily oiliness, hydration & breakout tracker</li>
+            <li>Daily oiliness, hydration &amp; breakout tracker</li>
             <li>AI-curated skincare routines per phase</li>
           </ul>
           <a href="skin.html" class="btn-outline">Explore Skin →</a>
@@ -322,7 +390,7 @@
         <div class="preview-visual">
           <div class="skin-preview-card">
             <div class="skin-phase-header">
-              <span class="skin-phase-badge ovulatory">🌕 Ovulatory Phase</span>
+              <span class="skin-phase-badge ovulatory">Ovulatory Phase</span>
               <small>Days 14–16</small>
             </div>
             <p class="skin-desc">Estrogen peaks — your skin is naturally luminous with improved barrier function and increased collagen production.</p>
@@ -344,7 +412,7 @@
               </div>
             </div>
             <div class="skin-routine">
-              <div class="routine-title">✨ Today's Routine</div>
+              <div class="routine-title">Today's Routine</div>
               <div class="routine-products">
                 <span class="product-chip">Vitamin C Serum</span>
                 <span class="product-chip">Gel Cleanser</span>
@@ -373,21 +441,21 @@
                   <strong>Jamie's Schedule</strong>
                   <small>This week</small>
                 </div>
-                <span class="partner-badge connected">● Connected</span>
+                <span class="partner-badge connected">Connected</span>
               </div>
               <div class="partner-week">
                 <div class="week-day busy"><span>Mon</span><small>9am–6pm</small></div>
                 <div class="week-day busy"><span>Tue</span><small>9am–6pm</small></div>
-                <div class="week-day free"><span>Wed</span><small>Day Off ✓</small></div>
+                <div class="week-day free"><span>Wed</span><small>Day Off</small></div>
                 <div class="week-day busy"><span>Thu</span><small>Late shift</small></div>
-                <div class="week-day best"><span>Fri</span><small>⭐ Best Window</small></div>
+                <div class="week-day best"><span>Fri</span><small>Best Window</small></div>
                 <div class="week-day free"><span>Sat</span><small>Free</small></div>
                 <div class="week-day free"><span>Sun</span><small>Free</small></div>
               </div>
               <div class="partner-nudge">
-                <div class="nudge-msg"><span>💬</span> Jamie sent: "Miss you! 🥰"</div>
+                <div class="nudge-msg">Jamie sent: "Miss you!"</div>
                 <div class="nudge-actions">
-                  <button class="nudge-btn">Miss you too 💕</button>
+                  <button class="nudge-btn">Miss you too</button>
                   <button class="nudge-btn secondary">Check in</button>
                 </div>
               </div>
@@ -397,10 +465,10 @@
               <div class="date-info">
                 <strong>Sunset Picnic at the Park</strong>
                 <div class="date-tags">
-                  <span>🌿 Outdoorsy</span>
-                  <span>💆 Low Pressure</span>
+                  <span>Outdoorsy</span>
+                  <span>Low Pressure</span>
                 </div>
-                <p class="date-tip">💡 Jamie Tip: Let her lead the pace today — she's in high energy mode.</p>
+                <p class="date-tip">Jamie Tip: Let her lead the pace today — she's in high energy mode.</p>
               </div>
             </div>
           </div>
@@ -412,7 +480,7 @@
           <ul class="feature-list">
             <li>Calendar sync (Google, Apple, Outlook)</li>
             <li>Best Window date planner</li>
-            <li>Partner nudges & mood broadcasts</li>
+            <li>Partner nudges &amp; mood broadcasts</li>
             <li>AI-generated date itineraries</li>
             <li>Partner coaching tips per phase</li>
           </ul>
@@ -429,11 +497,11 @@
     <div class="container">
       <div class="preview-split">
         <div class="preview-text">
-          <div class="section-badge">Nutrition & Fitness</div>
+          <div class="section-badge">Nutrition &amp; Fitness</div>
           <h2>Fuel and Move With Your Hormones</h2>
           <p>Cycle-synced nutrition, daily supplement checklists and adaptive workouts that align with your body's natural hormonal rhythms.</p>
           <ul class="feature-list">
-            <li>Phase-specific food & nutrient guides</li>
+            <li>Phase-specific food &amp; nutrient guides</li>
             <li>AM/PM supplement tracker</li>
             <li>HIIT vs rest workout recommendations</li>
           </ul>
@@ -442,21 +510,25 @@
         <div class="preview-visual">
           <div class="wellness-preview">
             <div class="wellness-card">
-              <div class="wellness-icon">🥗</div>
+              <div class="wellness-icon-line">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
               <div>
                 <strong>Today's Focus</strong>
-                <p>Zinc-rich foods & antioxidants</p>
+                <p>Zinc-rich foods &amp; antioxidants</p>
               </div>
             </div>
             <div class="wellness-card">
-              <div class="wellness-icon">⚡</div>
+              <div class="wellness-icon-line">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
               <div>
                 <strong>Workout</strong>
                 <p>HIIT — You have peak energy!</p>
               </div>
             </div>
             <div class="supplement-checklist">
-              <div class="supp-title">💊 Supplements — AM</div>
+              <div class="supp-title">Supplements — AM</div>
               <label class="supp-item"><input type="checkbox" checked /> Vitamin D3</label>
               <label class="supp-item"><input type="checkbox" checked /> Omega-3</label>
               <label class="supp-item"><input type="checkbox" /> Magnesium Glycinate</label>
@@ -469,6 +541,214 @@
   </section>
 
   <!-- ══════════════════════════════════════
+       AUTHORS SECTION
+  ══════════════════════════════════════ -->
+  <section class="authors-section" id="authors">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">The Minds Behind GenFlo</div>
+        <h2>Built with Care, Research &amp; Heart</h2>
+        <p>Our interdisciplinary team brings together expertise in women's health, AI research, and wellness design to create an experience that truly understands you.</p>
+      </div>
+      <div class="authors-grid">
+        <div class="author-card">
+          <div class="author-photo-wrap">
+            <div class="author-photo-placeholder" style="--ph-color-a:#8fac8d;--ph-color-b:#5e7a5c;">
+              <div class="author-photo-initials">JS</div>
+            </div>
+          </div>
+          <div class="author-info">
+            <h4>Dr. Jasmine Shah</h4>
+            <div class="author-role">Lead Researcher — Women's Health</div>
+            <p class="author-bio">Specialist in reproductive endocrinology with 10+ years bridging hormonal science and digital health innovation.</p>
+            <div class="author-tags">
+              <span>Endocrinology</span>
+              <span>Research</span>
+            </div>
+          </div>
+        </div>
+        <div class="author-card">
+          <div class="author-photo-wrap">
+            <div class="author-photo-placeholder" style="--ph-color-a:#c97c5d;--ph-color-b:#e0a085;">
+              <div class="author-photo-initials">MA</div>
+            </div>
+          </div>
+          <div class="author-info">
+            <h4>Marcus Adeyemi</h4>
+            <div class="author-role">AI Lead — Aria Architecture</div>
+            <p class="author-bio">ML engineer focused on conversational health AI, building empathetic systems that understand the nuance of personal wellness.</p>
+            <div class="author-tags">
+              <span>Machine Learning</span>
+              <span>NLP</span>
+            </div>
+          </div>
+        </div>
+        <div class="author-card">
+          <div class="author-photo-wrap">
+            <div class="author-photo-placeholder" style="--ph-color-a:#b5c9b3;--ph-color-b:#8fac8d;">
+              <div class="author-photo-initials">PL</div>
+            </div>
+          </div>
+          <div class="author-info">
+            <h4>Priya Lakhani</h4>
+            <div class="author-role">Head of Product Design</div>
+            <p class="author-bio">UX designer obsessed with making complex health data feel intuitive, warm, and beautifully accessible for every user.</p>
+            <div class="author-tags">
+              <span>UX Design</span>
+              <span>Accessibility</span>
+            </div>
+          </div>
+        </div>
+        <div class="author-card">
+          <div class="author-photo-wrap">
+            <div class="author-photo-placeholder" style="--ph-color-a:#d4b896;--ph-color-b:#c97c5d;">
+              <div class="author-photo-initials">TN</div>
+            </div>
+          </div>
+          <div class="author-info">
+            <h4>Dr. Taraji Nwosu</h4>
+            <div class="author-role">Clinical Advisor — Nutrition &amp; Fitness</div>
+            <p class="author-bio">Registered dietitian and sports scientist pioneering cycle-synced nutrition protocols backed by peer-reviewed research.</p>
+            <div class="author-tags">
+              <span>Nutrition</span>
+              <span>Sports Science</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ABOUT US SECTION
+  ══════════════════════════════════════ -->
+  <section class="about-section tinted" id="about">
+    <div class="container">
+      <div class="about-layout">
+        <div class="about-text">
+          <div class="section-badge">About Us</div>
+          <h2>Why We Built GenFlo</h2>
+          <p>GenFlo was born from a simple truth — women's health has been underfunded, understudied, and underrepresented in technology for too long. We set out to change that.</p>
+          <p>Our platform brings together cutting-edge hormonal science, AI, and compassionate design to give every person a tool that genuinely understands the rhythm of their body — not just a generic health app, but a true companion through every phase.</p>
+          <p>We believe that understanding your cycle is not just about tracking dates — it's about unlocking a deeper connection to your energy, emotions, skin, nutrition, and relationships.</p>
+          <div class="about-values">
+            <div class="value-item">
+              <div class="value-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <strong>Science-Backed</strong>
+                <p>Every insight grounded in peer-reviewed hormonal research</p>
+              </div>
+            </div>
+            <div class="value-item">
+              <div class="value-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <strong>Privacy First</strong>
+                <p>Your health data belongs to you — always encrypted, always secure</p>
+              </div>
+            </div>
+            <div class="value-item">
+              <div class="value-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <div>
+                <strong>Inclusive Design</strong>
+                <p>Built for every body, every cycle, every experience</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="about-stat-card">
+            <div class="about-big-num">10K+</div>
+            <div class="about-stat-label">Cycles Tracked</div>
+          </div>
+          <div class="about-stat-card highlight">
+            <div class="about-big-num">98%</div>
+            <div class="about-stat-label">User Satisfaction</div>
+          </div>
+          <div class="about-stat-card">
+            <div class="about-big-num">50+</div>
+            <div class="about-stat-label">Research Papers Referenced</div>
+          </div>
+          <div class="about-stat-card">
+            <div class="about-big-num">4</div>
+            <div class="about-stat-label">Wellness Dimensions Covered</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       CONTACT SECTION
+  ══════════════════════════════════════ -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-layout">
+        <div class="contact-info">
+          <div class="section-badge">Get In Touch</div>
+          <h2>We'd Love to Hear from You</h2>
+          <p>Whether you have questions about GenFlo, want to share feedback, or are interested in partnering with us — our team is always happy to connect.</p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <strong>Email Us</strong>
+                <span>hello@genflo.app</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <strong>Location</strong>
+                <span>London, United Kingdom</span>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <strong>Response Time</strong>
+                <span>Within 24 hours</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" id="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contact-name">Full Name</label>
+              <input type="text" id="contact-name" placeholder="Your name" />
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Email Address</label>
+              <input type="email" id="contact-email" placeholder="you@example.com" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="contact-subject">Subject</label>
+            <input type="text" id="contact-subject" placeholder="How can we help?" />
+          </div>
+          <div class="form-group">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" rows="5" placeholder="Tell us more..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary contact-submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
        FOOTER CTA
   ══════════════════════════════════════ -->
   <section class="footer-cta">
@@ -476,7 +756,7 @@
       <div class="cta-content">
         <h2>Ready to Begin Your Journey?</h2>
         <p>Join GenFlo and let Aria guide you through every phase.</p>
-        <a href="onboarding.html" class="btn-primary btn-lg">Start for Free →</a>
+        <a href="onboarding.html" class="btn-primary btn-lg">Start for Free</a>
       </div>
     </div>
   </section>
@@ -501,22 +781,50 @@
           <a href="aria.html">Aria AI</a>
         </div>
         <div class="footer-links">
+          <strong>Company</strong>
+          <a href="#about">About Us</a>
+          <a href="#authors">Our Team</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-links">
           <strong>Account</strong>
           <a href="onboarding.html">Get Started</a>
           <a href="login.html">Sign In</a>
-        </div>
-        <div class="footer-links">
-          <strong>Legal</strong>
+          <strong style="margin-top:8px">Legal</strong>
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Service</a>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 GenFlo. Made with 💚 for every cycle.</p>
+        <p>© 2026 GenFlo. Made with care for every cycle.</p>
       </div>
     </div>
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    // WYCD interactive feature items
+    const wycdItems = document.querySelectorAll('.wycd-feature-item');
+    wycdItems.forEach(item => {
+      item.addEventListener('click', () => {
+        wycdItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+
+    // Contact form
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = e.target.querySelector('.contact-submit');
+      btn.textContent = 'Message Sent!';
+      btn.style.background = 'linear-gradient(135deg, #5e7a5c, #8fac8d)';
+      setTimeout(() => {
+        btn.textContent = 'Send Message';
+        btn.style.background = '';
+        e.target.reset();
+      }, 3000);
+    });
+  </script>
+  <script src="js/aria-widget.js"></script>
 </body>
 </html>
